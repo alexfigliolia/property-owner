@@ -1,0 +1,119 @@
+.pay-bill {
+	height: calc(100% - 50px);
+	width: 100%;
+	background: #fff;
+	position: fixed;
+	top: 50px;
+	left: 0;
+	z-index: 380;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	transform: translateY(-50%);
+	opacity: 0;
+	visibility: hidden;
+	transition-duration: 0.3s;
+	@media #{$mq-670} {
+		height: calc(100% - 80px);
+		top: 80px;
+		@include center;
+	}
+	@media #{$mq-800} {
+		height: calc(100% - 80px);
+		width: 750px;
+		left: calc(50% - 375px);
+		height: 500px;
+		top: calc(50% - 250px + 40px);
+		@include headerShadow;
+		border-radius: 2.5px;
+	}
+	@media #{$mq-1070} {
+		top: calc(50% - 250px);
+		left: calc(50% - 375px + 100px);
+	}
+	@media #{$mq-h-1024} {
+		height: calc(80% - 80px);
+		top: calc( 10% + 80px);
+		width: 80%;
+		left: 10%;
+		@include center;
+		@include headerShadow;
+	}
+	&>div {
+		@include center;
+		flex-direction: column;
+		width: 90%;
+		margin: auto;
+		&>h2 {
+			font-size: 2em;
+			font-weight: 200;
+			margin-bottom: 10px;
+		}
+		&>p {
+			font-size: 1.1em;
+			font-weight: 500;
+			text-align: center;
+			width: 90%;
+			max-width: 400px;
+		}
+		&>.input {
+			margin-top: 40px;
+			@include center;
+			flex-direction: column;
+			width: 100%;
+			&>label {
+				font-size: 1.1em;
+				font-weight: 500;
+				margin-bottom: 20px;
+			}
+			&>input {
+				outline: none;
+				border: none;
+				border-radius: 0;
+				width: 90%;
+				max-width: 400px;
+				border-bottom: 1px solid $redish;
+				margin-bottom: 40px;
+				padding: 5px;
+			}
+		}
+		&>.pb-button {
+			height: 50px;
+			width: 220px;
+			border-radius: 2.5px;
+			@include buttonShadow;
+			outline: none;
+			border: none;
+			background: $redish;
+			color: #fff;
+			overflow: hidden;
+			position: relative;
+			transition-duration: 0.3s;
+			margin-bottom: 40px;
+			&>img {
+				height: 35px;
+				width: 35px;
+				position: absolute;
+				top: 7.5px;
+				left: 7.5px;
+				transform: scale(0);
+				transition-duration: 0.3s;
+			}
+		}
+		&>.pb-complete {
+			width: 50px;
+			border-radius: 50%;
+			color: $redish;
+			transition: color 0.2s 0s, border-radius 0.3s, 0.05s, width 0.3s 0s;
+			&>img {
+				transform: scale(1);
+				transition-delay: 0.3s;
+			}
+		}
+	}
+}
+
+.pay-bill-show {
+	transform: translateY(0%);
+	opacity: 1;
+	visibility: visible;
+}

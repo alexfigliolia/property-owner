@@ -1,0 +1,157 @@
+.accounting {
+	height: calc(100% - 50px);
+	width: 100%;
+	background: #fff;
+	position: fixed;
+	top: 50px;
+	left: 0;
+	z-index: 380;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	transform: translateY(-50%);
+	opacity: 0;
+	visibility: hidden;
+	transition-duration: 0.3s;
+	@media #{$mq-670} {
+		height: calc(100% - 80px);
+		top: 80px;
+	}
+	@media #{$mq-800} {
+		width: 750px;
+		left: calc(50% - 375px);
+		height: 500px;
+		top: calc(50% - 250px + 40px);
+		@include headerShadow;
+		border-radius: 2.5px;
+	}
+	@media #{$mq-1070} {
+		top: calc(50% - 250px);
+		left: calc(50% - 375px + 100px);
+	}
+	@media #{$mq-h-1024} {
+		height: calc(80% - 80px);
+		top: calc( 10% + 80px);
+		width: 80%;
+		left: 10%;
+		@include headerShadow;
+	}
+	&>div {
+		margin: auto;
+		@include center;
+		flex-direction: column;
+		width: 100%;
+		max-width: 800px;
+		margin-top: 60px;
+		margin-bottom: 30px;
+		@media #{$mq-670} {
+			width: 90%;
+		}
+		@media #{$mq-800} {
+			margin-top: 80px;
+		}
+		@media #{$mq-1700} {
+			margin-top: 0;
+		}
+		&>h1 {
+			font-weight: 200;
+			margin: 0;
+			width: 90%;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+		&>.inputs {
+			@include center;
+			flex-direction: row;
+			margin-bottom: 10px;
+			width: 100%;
+			&>div{
+				@include center;
+				flex-direction: column;
+				margin-right: 5px;
+				@media #{$mq-670}{
+					margin-right: 10%;
+				}
+				&>label {
+					// align-self: flex-start;
+				}
+				&>input {
+					-moz-appearance: none;
+					-webkit-appearance: none;
+					-o-appearance: none;
+					-ms-appearance: none;
+					width: auto; 
+					height: 40px;
+					@include center;
+					text-align: center;
+					outline: none;
+					border: none;
+					border-radius: 0;
+					background: #EDF0F0;
+					@include buttonShadow;
+				}
+			}
+			&>div:last-of-type{
+				margin-left: 5px;
+				margin-right: 0;
+				@media #{$mq-670}{
+					margin-right: 0;
+					margin-left: 10%;
+				}
+			}
+		}
+		&>.acc {
+			@include center;
+			flex-direction: column;
+			width: 100%;
+			&>.income,
+			&>.expenses,
+			&>.profit-loss{
+				width: 100%;
+				@include center;
+				flex-direction: column;
+				border-bottom: 1px solid #D8DADA;
+				&>.table {
+					width: 100%;
+					@include center;
+					flex-direction: row;
+					justify-content: space-between;
+					border-top: 1px solid #D8DADA;
+					padding: 2.5px 0;
+					&>h4 {
+						margin: 0;
+						font-size: 0.9em;
+						font-weight: 300;
+					}
+					&>h4:first-of-type {
+						margin: 0;
+						margin-left: 10px;
+					}
+					&>h4:last-of-type {
+						margin: 0;
+						margin-right: 10px;
+					}
+				}
+			}
+			&>.expenses>h3,
+			&>.expenses>.table:last-of-type>h4:last-of-type {
+				color: $redish;
+				font-weight: 700;
+			}
+			&>.income>h3,
+			&>.income>.table:last-of-type>h4:last-of-type {
+				color: #65B764;
+				font-weight: 700;
+			}
+			&>.profit-loss>.table:last-of-type>h4:last-of-type {
+				color: #65B764;
+				font-weight: 700;
+			}
+		}
+	}
+}
+
+.accounting-show {
+	transform: translate3d(0, 0%, 0);
+	opacity: 1;
+	visibility: visible;
+}

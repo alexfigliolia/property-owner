@@ -1,0 +1,112 @@
+.c-rent {
+	height: calc(100% - 50px);
+	width: 100%;
+	background: #fff;
+	position: fixed;
+	top: 50px;
+	left: 0;
+	z-index: 380;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	transform: translateY(-50%);
+	opacity: 0;
+	visibility: hidden;
+	transition-duration: 0.3s;
+	@include center;
+	@media #{$mq-670} {
+		height: calc(100% - 80px);
+		top: 80px;
+		@include center;
+	}
+	@media #{$mq-800} {
+		height: calc(100% - 80px);
+		width: 750px;
+		left: calc(50% - 375px);
+		height: 500px;
+		top: calc(50% - 250px + 40px);
+		@include headerShadow;
+		border-radius: 2.5px;
+	}
+	@media #{$mq-1070} {
+		top: calc(50% - 250px);
+		left: calc(50% - 375px + 100px);
+	}
+	@media #{$mq-h-1024} {
+		height: calc(80% - 80px);
+		top: calc( 10% + 80px);
+		width: 80%;
+		left: 10%;
+		@include headerShadow;
+	}
+	&>div {
+		@include center;
+		flex-direction: column;
+		width: 90%;
+		margin: auto;
+		&>h2 {
+			font-size: 2em;
+			font-weight: 200;
+			margin-top: 0;
+		}
+		&>.input {
+			width: 100%;
+			@include center;
+			flex-direction: column;
+			margin-top: 30px;
+			margin-bottom: 30px;
+			&>label {
+				font-size: 1.1em;
+				font-weight: 500;
+				margin-bottom: 25px;
+			}
+			&>input {
+				outline: none;
+				border: none;
+				border-radius: 0;
+				border-bottom: 1px solid $redish;
+				width: 90%;
+				max-width: 400px;
+				padding: 5px;
+			}
+		}
+		&>.cr-button {
+			margin-top: 20px;
+			outline: none;
+			border: none;
+			border-radius: 2.5px;
+			@include buttonShadow;
+			height: 50px;
+			width: 220px;
+			color: #fff;
+			background: $redish;
+			position: relative;
+			overflow: hidden;
+			transition-duration: 0.3s;
+			&>img {
+				position: absolute;
+				height: 35px;
+				width: 35px;
+				top: 7.5px;
+				left: 7.5px;
+				transform: scale(0);
+				transition-duration: 0.3s;
+			}
+		}
+		&>.cr-complete {
+			width: 50px;
+			border-radius: 50%;
+			color: $redish;
+			transition: color 0.2s 0s, width 0.3s 0s, border-radius 0.3s 0.05s;
+			&>img {
+				transform: scale(1);
+				transition-delay: 0.3s;
+			}
+		}
+	}
+}
+
+.c-rent-show {
+	transform: translateY(0%);
+	opacity: 1;
+	visibility: visible;
+}

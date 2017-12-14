@@ -1,0 +1,336 @@
+.login {
+	height: 100vh;
+	overflow: hidden;
+	width: 100%;
+	@include center;
+	background: url("property.jpg") no-repeat 100% 50%;
+	background-size: cover;
+	color: #fff;
+	position: relative;
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 980327409137409;
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: rgba(#263346, 0.900001);
+		z-index: 1;
+	}
+	&>div {
+		@include center;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		z-index: 3;
+		@media #{$mq-670} {
+			margin: 0;
+		}
+		&>h1 {
+			margin: 0;
+			margin-bottom: 5px;
+			font-weight: 200;
+			font-size: 10vh;
+			text-align: center;
+			@include center;
+			&>div {
+				@include backgroundTop;
+			    -webkit-background-clip: text;
+			    -webkit-text-fill-color: transparent;
+			    transform: translateY(-100px);
+				opacity: 0;
+			}
+		}
+		&>.login-forms {
+			@include center;
+			flex-direction: column;
+			width: 80%;
+			max-width: 500px;
+			border-radius: 5px;
+			font-weight: 700;
+			position: relative;
+			transform: translateY(100px);
+			opacity: 0;
+			&>h2 {
+				margin: 0;
+				margin-top: 15px;
+				font-weight: 500;
+				font-weight: 300;
+				color: $redish;
+			}
+			&>div {
+				@include center;
+				flex-direction: row;
+				margin-top: 10px;
+				width: 100%;
+				position: relative;
+				max-width: 500px;
+				&>button {
+					border-radius: 2.5px;
+					background: $purple;
+					@include headerShadow;
+					outline: none;
+					border: none;
+					height: 40px;
+					width: 100%;
+					margin-right: 10px;
+					font-weight: 800;
+					transition-duration: 0.2s;
+					color: #fff;
+					@include backgroundRight;
+					position: relative;
+					&>img {
+						position: absolute;
+						height: 50px;
+						width: 50px;
+						top: 5px;
+						left: 5px;
+						transform: scale(0);
+					}
+				}
+				&>.button-loading {
+					width: 60px;
+					height: 60px;
+					color: transparent;
+					border-radius: 50%;
+					@include headerShadow;
+					transition: height 0.2s, width 0.2s, color 0.1s, border-radius 0.2s 0.05s;
+					&>.loading-user {
+						position: absolute;
+						height: 50px;
+						width: 50px;
+						top: 5px;
+						left: 5px;
+						transform: scale(1);
+						transition: transform 0.2s 0.1s;
+					}
+				}
+				&>.good-to-go {
+					width: 60px;
+					height: 60px;
+					color: transparent;
+					border-radius: 50%;
+					@include headerShadow;
+					transition: height 0.2s, width 0.2s, color 0.1s, border-radius 0.2s 0.05s;
+					&>.loading-user {
+						position: absolute;
+						height: 50px;
+						width: 50px;
+						top: 5px;
+						left: 5px;
+						transform: scale(0);
+						transition: transform 0.2s 0.1s;
+					}
+					&>.loaded-user {
+						position: absolute;
+						height: 50px;
+						width: 50px;
+						top: 5px;
+						left: 5px;
+						transform: scale(1);
+						transition: transform 0.2s 0.2s;
+					}
+				}
+			}
+			&>.input {
+				@include center;
+				margin: 0;
+				margin-bottom: 5px;
+				position: relative;
+				&::after {
+					content: "";
+					position: absolute;
+					top: 40px;
+					left: 0;
+					width: 100%;
+					@include backgroundRight;
+					height: 2px;
+				}
+				&>input {
+					border: none;
+					outline: none;
+					margin-bottom: 20px;
+					border-radius: 0;
+					background: transparent;
+					width: 100%;
+					padding-left: 40px;
+					height: 40px;
+					position: relative;
+					font-weight: 300;
+					border-radius: 2.5px;
+					@media #{$mq-670} {
+						padding-left: 40px;
+					}
+				}
+				::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+				  color: #C7CACD;
+				}
+				::-moz-placeholder { /* Firefox 19+ */
+				  color: #C7CACD;
+				}
+				:-ms-input-placeholder { /* IE 10+ */
+				  color: #C7CACD;
+				}
+				:-moz-placeholder { /* Firefox 18- */
+				  color: #C7CACD;
+				}
+				&>img,
+				&>svg {
+					position: absolute;
+					top: 2.5px;
+					left: 0;
+					height: 35px;
+					width: auto;
+				}
+				&>svg>.stroke-me {
+					stroke: $purple;
+					fill: transparent;
+					transition-duration: 0.2s;
+				}
+				&>input:focus {
+					& + svg>.stroke-me {
+						stroke: transparent;
+						fill: $purple;
+					}
+				}
+			}
+			.input-enter {
+			  opacity: 0.01;
+			}
+
+			.input-enter.new-input-enter-active {
+			  opacity: 1;
+			  transition: opacity 500ms ease-in;
+			}
+
+			.input-leave {
+			  opacity: 1;
+			}
+
+			.input-leave.new-input-leave-active {
+			  opacity: 0.01;
+			  transition: opacity 300ms ease-in;
+			}
+		}
+		&>.sign-up {
+			@include center;
+			flex-direction: row;
+			color: #E4E7ED;
+			margin-top: 20px;
+			transform: translateY(100px);
+			opacity: 0;
+			&>h3 {
+				margin: 0;
+				margin-right: 10px;
+			}
+			&>a {
+				margin: 0;
+				text-decoration: underline;
+				color: $redish;
+				cursor: pointer;
+				font-weight: 800;
+				font-size: 1.1em;
+			}
+		}
+	}
+}
+
+.login-visible {
+	opacity: 1;
+	visibility: visible;
+	transition-duration: 0.6s;
+	&>div>h1>div:nth-of-type(1) {
+		transform: translateY(0px);
+		opacity: 1;
+		transition-duration: 0.4s;
+		transition-delay: 0.6s
+	}
+	&>div>h1>div:nth-of-type(2) {
+		transform: translateY(0px);
+		opacity: 1;
+		transition-duration: 0.4s;
+		transition-delay: 0.65s
+	}
+	&>div>h1>div:nth-of-type(3) {
+		transform: translateY(0px);
+		opacity: 1;
+		transition-duration: 0.4s;
+		transition-delay: 0.7s
+	}
+	&>div>h1>div:nth-of-type(4) {
+		transform: translateY(0px);
+		opacity: 1;
+		transition-duration: 0.4s;
+		transition-delay: 0.75s
+	}
+	&>div>h1>div:nth-of-type(5) {
+		transform: translateY(0px);
+		opacity: 1;
+		transition-duration: 0.4s;
+		transition-delay: 0.8s
+	}
+	&>div>.login-forms {
+		transform: translateY(0px);
+		opacity: 1;
+		transition-duration: 0.4s;
+		transition-delay: 0.85s
+	}
+	&>div>.sign-up {
+		transform: translateY(0px);
+		opacity: 1;
+		transition-duration: 0.4s;
+		transition-delay: 0.9s
+	}
+}
+
+.logged-in {
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.5s 1s;
+	&>div>h1>div:nth-of-type(1) {
+		transform: translateY(-100px);
+		opacity: 0;
+		transition-duration: 0.4s;
+		transition-delay: 0.25s
+	}
+	&>div>h1>div:nth-of-type(2) {
+		transform: translateY(-100px);
+		opacity: 0;
+		transition-duration: 0.4s;
+		transition-delay: 0.3s;
+	}
+	&>div>h1>div:nth-of-type(3) {
+		transform: translateY(-100px);
+		opacity: 0;
+		transition-duration: 0.4s;
+		transition-delay: 0.35s;
+	}
+	&>div>h1>div:nth-of-type(4) {
+		transform: translateY(-100px);
+		opacity: 0;
+		transition-duration: 0.4s;
+		transition-delay: 0.4s;
+	}
+	&>div>h1>div:nth-of-type(5) {
+		transform: translateY(-100px);
+		opacity: 0;
+		transition-duration: 0.4s;
+		transition-delay: 0.45s;
+	}
+	&>div>.login-forms {
+		transform: translateY(-100px);
+		transition: all 0.3s 0.55s;
+		opacity: 0;
+	}
+	&>div>.sign-up {
+		transform: translateY(-100px);
+		transition: all 0.3s 0.65s;
+		opacity: 0;
+	}
+}

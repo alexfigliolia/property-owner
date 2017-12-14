@@ -1,0 +1,354 @@
+.graph-container {
+	background:#202B3C;
+	width: 90%;
+	margin: auto;
+	margin-top: 20px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	@include headerShadow;
+	@include center;
+	max-width: 1150px;
+	border-radius: 5px;
+	// opacity: 0;
+	// transition: opacity 0.4s 0.4s;
+	@media #{$mq-670} {
+		width: 97.5%;
+	}
+	@media #{$mq-1700} {
+		max-width: none;
+		width: 90%;
+	}
+	&>.welcome {
+		@include center;
+		width: 95%;
+		min-height: calc(95vh - 20px);
+		max-width: 750px;
+		color: #EFF2F2;
+		padding: 40px 10px;
+		flex-direction: row;
+		flex-wrap: wrap;
+		opacity: 0;
+		transition: opacity 0.4s 0.4s;
+		@media #{$mq-1700} {
+			max-width: 1150px;
+		}
+		&>svg {
+			height: 50px;
+			width: 50px;
+			margin: 0;
+			margin-bottom: 20px;
+			@media #{$mq-670} {
+				height: 90px;
+				width: 90px;
+				margin-bottom: 50px;
+			}
+			@media #{$mq-957} {
+				height: 120px;
+				width: 120px;
+				margin-bottom: 20px;
+			}
+		}
+		&>.right {
+			margin-left: 20px;
+		}
+		&>.left {
+			margin-right: 20px;
+		}
+		&>h1 {
+			font-weight: 200;
+			font-size: 5.75vh;
+			color: #fff;
+			margin: auto;
+			margin-top: 0;
+			margin-bottom: 30px;
+			width: 100%;
+			text-align: center;
+			@media #{$mq-670} {
+				font-size: 7vh;
+			}
+			@media #{$mq-957} {
+				font-size: 6.5vh;
+			}
+			&>span {
+				color: none;
+				font-weight: 200;
+				@include backgroundTop;
+			    -webkit-background-clip: text;
+			    -webkit-text-fill-color: transparent;
+			}
+		}
+		&>p {
+			margin: 10px auto;
+			line-height: 1.5;
+			text-align: left;
+			font-size: 3vh;
+			max-width: 600px;
+			font-weight: 400;
+			width: calc(100% - 70px);
+			margin-bottom: 20px;
+			@media #{$mq-670} {
+				width: calc(100% - 110px);
+				margin: 20px auto;
+				font-size: 1.75em;
+				margin-bottom: 50px;
+			}
+			@media #{$mq-957} {
+				width: calc(100% - 150px);
+				margin: 30px 0;
+				font-size: 3vh;
+				margin-bottom: 7.5%;
+			}
+			@media #{$mq-1700} {
+				height: 80px;
+				font-size: 4vh;
+				max-width: 1000px;
+			}
+		}
+		&>p:nth-of-type(odd) {
+			text-align: right;
+			@media #{$mq-670} {
+				text-align: left;
+			}
+		}
+	}
+	.welcome-show {
+		opacity: 1;
+	}
+	&>div {
+		@include center;
+		width: 100%;
+		flex-direction: column;
+		height: 100%;
+		width: 92.5%;
+		@media #{$mq-550} {
+			width: 100%;
+		}
+		&>h2 {
+			color: #fff;
+			font-weight: 200;
+			font-size: 1.5em;
+			margin: 0;
+			margin: 20px 0;
+			@media #{$mq-670} {
+				font-size: 2em;
+			}
+		}
+		&>.graph {
+			height: 35vh;
+			max-height: 500px;
+			width: 85%;
+			margin-left: 25px;
+			border-left: 2px solid #fff;
+			border-bottom: 2px solid #fff;
+			@include center;
+			position: relative;
+			&::after {
+				content: "0";
+				position: absolute;
+				bottom: -10px;
+				left: -20px;
+				width: 20px;
+				height: 20px;
+				color: #fff;
+				@include center;
+				font-size: 0.8em;
+			}
+			&>.month {
+				width: 8.3%;
+				height: 100%;
+				box-sizing: border-box;
+				position: relative;
+				@include center;
+				// justify-content: space-between;
+				&::after {
+					content: attr(data-m);
+					position: absolute;
+					bottom: -25px;
+					left: 0;
+					color: #fff;
+					width: 100%;
+					height: 20px;
+					@include center;
+					font-size: 0.8em;
+					@media #{$mq-670} {
+						content: attr(data-mo);
+					}
+				}
+			}
+		}
+		&>.graph-key {
+			@include center;
+			flex-direction: row;
+			margin: 0;
+			margin-top: 50px;
+			width: auto;
+			align-items: flex-start;
+			&>div{
+				@include center;
+				flex-direction: row;
+				margin: 5px 12.5px;
+				width: auto;
+				@media #{$mq-800} {
+					margin: 5px 20px;
+				}
+				&>div{
+					width: 30px;
+					height: 30px;
+					background: $purple;
+					margin-right: 10px;
+				}
+				&>.key-expected{
+					background: #51A549;
+				}
+				// &>.key-collected {
+				// 	margin-right: 38px;
+				// }
+				&>h5{
+					margin: 0;
+					color: #fff;
+					margin-left: 0px;
+					font-weight: 200;
+				}
+			}
+		}
+		&>.graph-reads {
+			width: 100%;
+			@include center;
+			flex-direction: column;
+			margin-top: 20px;
+			max-width: 1200px;
+			@media #{$mq-800} {
+				flex-direction: row;
+			}
+			&>.g-read {
+				width: 100%;
+				// border: 1px solid #fff;
+				@include center;
+				flex-direction: column;
+				color: #fff;
+				padding: 20px 0;
+				@media #{$mq-800} {
+					width: 50%;
+				}
+				&>h3 {
+					font-weight: 200;
+					font-size: 1.5em;
+					margin: 0;
+					margin-bottom: 15px;
+				}
+				&>div {
+					@include center;
+					flex-direction: column;
+					width: 90%;
+					&>div {
+						@include center;
+						flex-direction: row;
+						justify-content: space-between;
+						width: 97.5%;
+						margin: 10px 0px;
+						&>h4 {
+							margin: 0px;
+							font-size: 1em;
+							text-align: left;
+						}
+						&>h4:nth-of-type(2) {
+							color: #51A549;
+							margin: 0;
+						}
+					}
+					&>.expenses{
+						&>h4:nth-of-type(2) {
+							color: $redish;
+							margin: 0;
+						}
+					}
+				}
+				&>.year-calc,
+				&>.month-calc {
+					&>h4:nth-of-type(2){
+						&>strong{
+							color: $redish
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.graph-bar {
+	align-self: flex-end;
+	width: 20%;
+	margin: 0;
+	padding: 0;
+	transition-duration: 0.5s;
+	transform: scaleY(0);
+	transform-origin: 50% 100%;
+	max-height: 100%;
+
+}
+.graph-bar:first-of-type {
+	margin-right: 15%;
+	box-shadow: 0px -1px 7.5px #91A7E0;
+	@media #{$mq-800} {
+		box-shadow: 0px -1px 10px #91A7E0;
+	}
+}
+.graph-bar:last-of-type {
+	margin-left: 15%;
+	box-shadow: 0px -1px 7.5px #51A549;
+	@media #{$mq-800} {
+		box-shadow: 0px -1px 10px #51A549;
+	}
+}
+
+.graph-bar-show {
+	transform: scaleY(1);
+}
+
+.notch{
+	position: absolute;
+	top: 0;
+	left: -6px;
+	width: 10px;
+	height: 1px;
+	background: #fff;
+	&::before {
+		content: attr(data-num);
+		color: #fff;
+		font-size: 0.6em;
+		position: absolute;
+		left: -22.5px;
+		top: -5px;
+	}
+}
+.notch:nth-of-type(1){
+	top: 0%;
+}
+.notch:nth-of-type(2){
+	top: 10%;
+}
+.notch:nth-of-type(3){
+	top: 20%;
+}
+.notch:nth-of-type(4){
+	top: 30%;
+}
+.notch:nth-of-type(5){
+	top: 40%;
+}
+.notch:nth-of-type(6){
+	top: 50%;
+}
+.notch:nth-of-type(7){
+	top: 60%;
+}
+.notch:nth-of-type(8){
+	top: 70%;
+}
+.notch:nth-of-type(9){
+	top: 80%;
+}
+.notch:nth-of-type(10){
+	top: 90%;
+}

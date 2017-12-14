@@ -1,0 +1,57 @@
+.outstanding-snap-shot{
+	background: $redish;
+	@media #{$mq-800} {
+		width: 47.5%;
+		@include center;
+		// margin: 0;
+		margin-top: 20px;
+		// margin-left: 1.5%;
+	}
+	&>div{
+		@include center;
+		flex-direction: column;
+		width: 100%;
+		&>h2 {
+			color: #fff;
+			margin: 0;
+			margin-bottom: 10px;
+			margin-top: 10px;
+			font-weight: 200;
+		}
+		&>.outstanding-item {
+			width: 90%;
+			background: rgba(#E8EBEF, 0.85);
+			margin: 5px 0;
+			padding: 10px;
+			@include center;
+			flex-direction: column;
+			border-radius: 5px;
+			@include buttonShadow;
+			cursor: pointer;
+			transition-duration: 0.3s;
+			&>h3 {
+				color: #000;
+				font-weight: 200;
+				margin: 0;
+				margin-bottom: 2.5px;
+				font-size: 1em;
+				&::first-letter {
+					text-transform: uppercase;
+				}
+				&>strong {
+					color: $redish;
+				}
+			}
+			&>p {
+				font-weight: 200;
+				margin: 0;
+				margin-top: 2.5px;
+				font-size: 0.9em;
+			}
+			&:hover {
+				background: #fff;
+				@include headerShadow;
+			}
+		}
+	}
+}

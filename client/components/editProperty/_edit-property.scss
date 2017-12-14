@@ -1,0 +1,135 @@
+.edit-property {
+	height: calc(100% - 50px);
+	width: 100%;
+	background: #fff;
+	position: fixed;
+	top: 50px;
+	left: 0;
+	z-index: 380;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	transform: translateY(-50%);
+	opacity: 0;
+	visibility: hidden;
+	transition-duration: 0.3s;
+	@media #{$mq-670} {
+		height: calc(100% - 80px);
+		top: 80px;
+	}
+	@media #{$mq-800} {
+		height: calc(100% - 80px);
+		width: 750px;
+		left: calc(50% - 375px);
+		height: 500px;
+		top: calc(50% - 250px + 40px);
+		@include headerShadow;
+		border-radius: 2.5px;
+	}
+	@media #{$mq-1070} {
+		top: calc(50% - 250px);
+		left: calc(50% - 375px + 100px);
+	}
+	@media #{$mq-h-1024} {
+		height: calc(80% - 80px);
+		top: calc( 10% + 80px);
+		width: 80%;
+		left: 10%;
+		@include headerShadow;
+	}
+	&>div {
+		width: 90%;
+		max-width: 450px;
+		margin: auto;
+		text-align: center;
+		margin-bottom: 50px;
+		&>h2 {
+			margin-top: 40px;
+			font-weight: 200;
+			font-size: 2em;
+			margin-bottom: 15px;
+		}
+		&>p {
+			font-size: 1.1em;
+			font-weight: 500;
+			width: 80%;
+			margin: auto;
+		}
+		&>div {
+			width: 100%;
+			&>.circ {
+				height: 70px;
+				width: 70px;
+				color: $redish;
+				@include center;
+				border-radius: 50%;
+				@include headerShadow;
+				margin: 40px auto;
+				font-size: 2em;
+			}
+			&>h3 {
+				color: $redish;
+				font-size: 1.5em;
+				margin-top: -10px;
+				margin-bottom: 40px;
+			}
+			&>.input {
+				@include center;
+				flex-direction: column;
+				width: 100%;
+				&>label {
+					text-align: left;
+					width: 100%;
+					margin-bottom: 10px;
+					font-size: 1.1em;
+				}
+				&>input {
+					outline: none;
+					border: none;
+					border-radius: 0;
+					width: 100%;
+					border-bottom: 1px solid $redish;
+					margin-bottom: 30px;
+					font-size: 1.1em;
+					padding: 5px;
+				}
+			}
+		}
+		&>.save-btn {
+			height: 50px;
+			width: 220px;
+			border-radius: 2.5px;
+			@include buttonShadow;
+			color: #fff;
+			background: $redish;
+			border: none;
+			outline: none;
+			margin-top: 30px;
+			position: relative;
+			transition-duration: 0.3s;
+			&>img {
+				position: absolute;
+				height: 35px;
+				width: 35px;
+				top: 7.5px;
+				left: 7.5px;
+				transform: scale(0);
+				transition-duration: 0.3s;
+			}
+		}
+		&>.save-complete {
+			color: $redish;
+			border-radius: 50%;
+			width: 50px;
+			&>img {
+				transform: scale(1);
+				transition-delay: 0.3s;
+			}
+		}
+	}
+}
+
+.edit-property-show {
+	transform: translateY(0%);
+	opacity: 1;
+	visibility: visible;
+}

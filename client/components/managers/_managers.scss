@@ -1,0 +1,237 @@
+.managers {
+	height: calc(100% - 50px);
+	width: 100%;
+	background: #fff;
+	position: fixed;
+	top: 50px;
+	left: 0;
+	z-index: 380;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	transform: translateY(-50%);
+	opacity: 0;
+	visibility: hidden;
+	transition-duration: 0.3s;
+	@media #{$mq-670} {
+		height: calc(100% - 80px);
+		top: 80px;
+	}
+	@media #{$mq-800} {
+		height: calc(100% - 80px);
+		width: 750px;
+		left: calc(50% - 375px);
+		height: 500px;
+		top: calc(50% - 250px + 40px);
+		@include headerShadow;
+		border-radius: 2.5px;
+	}
+	@media #{$mq-1070} {
+		top: calc(50% - 250px);
+		left: calc(50% - 375px + 100px);
+	}
+	@media #{$mq-h-1024} {
+		height: calc(80% - 80px);
+		top: calc( 10% + 80px);
+		width: 80%;
+		left: 10%;
+		@include headerShadow;
+	}
+	&>div {
+		height: auto;
+		width: 100%;
+		&>h2 {
+			text-align: center;
+			font-weight: 200;
+			font-size: 2em;
+			margin: 0;
+			margin-top: 40px;
+			margin-bottom: 10px;
+		}
+		&>p {
+			text-align: center;
+			margin: 0;
+			width: 92.5%;
+			max-width: 400px;
+			margin: auto;
+		}
+		&>.add-manager {
+			width: 90%;
+			@include center;
+			flex-direction: row;
+			margin: auto;
+			margin-top: 20px;
+			max-width: 380px;
+			&>div {
+				@include center;
+				flex-direction: row;
+				justify-content: space-between;
+				width: 100%;
+				&>input {
+					outline: none;
+					border: none;
+					border-bottom: 1px solid $redish;
+					padding: 5px;
+					border-radius: 0;
+					margin-right: 10px;
+					width: calc(100% - 65px);
+				}
+				&>button {
+					height: 45px;
+					width: 45px;
+					border-radius: 50%;
+					outline: none;
+					border: none;
+					background: $redish;
+					@include headerShadow;
+					margin-left: 10px;
+					@include center;
+					position: relative;
+					&>img {
+						position: absolute;
+						height: 22.5px;
+						width: 22.5px;
+						left: 10px;
+						top: 11px;
+						transition-duration: 0.3s;
+					}
+					&>img:last-of-type {
+						position: absolute;
+						height: 30px;
+						width: 30px;
+						left: 8px;
+						top: 7.5px;
+						transform: scale(0);
+					}
+				}
+			}
+		}
+		&>.add-manager-loading>div>button>img:first-of-type {
+			transform: scale(0);
+		}
+		&>.add-manager-loading>div>button>img:last-of-type {
+			transform: scale(1);
+		}
+		&>.list {
+			width: 90%;
+			max-width: 400px;
+			margin: 30px auto 40px auto;
+			&>.manager {
+				width: 100%;
+				@include center;
+				justify-content: space-between;
+				color: $redish;
+				background: #EFF3F3;
+				padding: 5px 10px; 
+				border-radius: 100px;
+				font-weight: 700;
+				margin: 10px 0;
+				@include buttonShadow;
+				transform: scaleX(0);
+				transform-origin: 0% 50%;
+				transition-duration: 0.3s;
+				&>h3 {
+					margin: 0;
+					padding: 0;
+					margin-left: 10px;
+					font-size: 1.1em;
+				}
+				&>button {
+					height: 30px;
+					width: 30px;
+					border-radius: 50%;
+					border: 1px solid $redish;
+					outline: none;
+					padding: 0;
+					background: transparent;
+					@include center;
+					position: relative;
+					transition-duration: 0.3s;
+					&>img {
+						height: 20px;
+						width: 20px;
+						position: absolute;
+						top: 4px;
+						left: 4px;
+						margin: 0;
+						padding: 0;
+						transition-duration: 0.3s;
+					}
+					&>img:last-of-type {
+						transform: scale(0);
+					}
+				}
+			}
+			&>.manager-loading>button {
+				background: $redish;
+				&>img:first-of-type {
+					transform: scale(0);
+				}
+				&>img:last-of-type {
+					transform: scale(1);
+				}
+			}
+			&>.manager-show {
+				transform: scaleX(1);
+			}
+		}
+		.manager-password {
+			margin-bottom: 50px;
+			&>div {
+				flex-wrap: wrap;
+				&>h3 {
+					width: 100%;
+					text-align: center;
+					font-weight: 200;
+					margin: 0;
+					font-size: 1.5em;
+					margin-bottom: 20px;
+				}
+				&>button>img {
+					position: absolute;
+					height: 22.5px;
+					width: 22.5px;
+					left: 11.5px;
+					top: 11px;
+					transition-duration: 0.3s;
+				}
+				&>button>img:last-of-type {
+					position: absolute;
+					height: 30px;
+					width: 30px;
+					left: 8px;
+					top: 7.5px;
+					transform: scale(0);
+				}
+				&>button>img:nth-of-type(2) {
+					position: absolute;
+					height: 30px;
+					width: 30px;
+					left: 8px;
+					top: 7.5px;
+					transform: scale(0);
+				}
+			}
+		}
+		&>.manager-password-loading>div>button>img:first-of-type {
+			transform: scale(0);
+		}
+		&>.manager-password-loading>div>button>img:nth-of-type(2) {
+			transform: scale(1);
+		}
+		&>.manager-password-loading>div>button>img:last-of-type {
+			transform: scale(0);
+		}
+		&>.manager-password-complete>div>button>img:first-of-type {
+			transform: scale(0);
+		}
+		&>.manager-password-complete>div>button>img:last-of-type {
+			transform: scale(1);
+		}
+	}
+}
+
+.managers-show {
+	transform: translateY(0%);
+	opacity: 1;
+	visibility: visible;
+}
