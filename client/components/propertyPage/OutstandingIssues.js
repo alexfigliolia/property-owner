@@ -7,11 +7,13 @@ export default class OutstandingIssues extends Component {
 	}
 
 	deleteIssue = (e) => {
-    const issue = this.props.issues[e.target.dataset.idx];
-    Meteor.call('issue.delete', issue._id, (err, res) => {
+    const id = e.target.dataset.id;
+    const idx = e.target.dataset.idx;
+    Meteor.call('issue.delete', id, (err, res) => {
       if(err) {
         console.log(err);
       } else {
+        this.props.haveAToast('Issue Deleted:', `You deleted the "${this.props.issues[idx].issue}" service item`);
         this.undoFlips();
       }
     });
@@ -40,8 +42,13 @@ export default class OutstandingIssues extends Component {
                     <div className="back">
                       <h3>Are you sure you want to delete this item?</h3>
                       <div>
-                        <button data-selected="no" onClick={this.props.showMAC}>No</button>
-                        <button data-idx={i} onClick={this.deleteIssue}>Yes</button>
+                        <button 
+                          data-selected="no" 
+                          onClick={this.props.showMAC}>No</button>
+                        <button 
+                          data-id={issue._id} 
+                          data-idx={i} 
+                          onClick={this.deleteIssue}>Yes</button>
                       </div>
                     </div>
                     <h3>{issue.issue}</h3>
@@ -50,7 +57,7 @@ export default class OutstandingIssues extends Component {
                       <div className="issue-buttons">
                         <button onClick={this.props.showMAC}>Delete</button>
                         <button 
-                          data-idx={i} 
+                          data-id={issue._id}
                           onClick={this.props.togglePostSolution}>
                           Solve</button>
                       </div>

@@ -102,6 +102,7 @@ body,
 @import 'components/accounting/accounting';
 @import 'components/chat/chat';
 @import 'components/postSolution/post-solution';
+@import 'components/toast/_toast';
 
 .no-scroll {
 	height: calc(100vh - 50px);

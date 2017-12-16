@@ -20,7 +20,7 @@ export default class PayABill extends Component {
   }
 
   submit = () => {
-  	if(this.state.number !== '') {
+  	if(this.state.number !== '' && this.state.text !== '') {
   		this.setState({ classes: 'pb-button pb-complete' });
       const bill = {
         propId: this.props.property._id,
@@ -41,14 +41,18 @@ export default class PayABill extends Component {
       }
   		Meteor.call('issues.create', this.props.property._id, this.props.property.property, bill, (err, res) => {
   			if(err) {
-  				console.log(err);
+  				// console.log(err);
+          this.props.haveAToast('Error:', 'Please check your inputs and try again.');
   			} else {
+          this.props.haveAToast(`${this.props.property.property}:`, `You paid the "${bill.issue}" bill!`)
   				setTimeout(() => {
-  					this.setState({ classes: 'pb-button', number: '' }, this.props.handleCloser);
+  					this.setState({ classes: 'pb-button', number: '', text: '' }, this.props.handleCloser);
   				}, 800)
   			}
   		});
-  	}
+  	} else {
+      this.props.haveAToast('Error:', 'The name of the bill and the amount are required');
+    }
   }
 
   render = () => {
@@ -60,10 +64,12 @@ export default class PayABill extends Component {
     			<div className="input">
     				<label>Expense:</label>
             <input 
+              value={this.state.text}
               onChange={(e) => this.setState({text: e.target.value})}
               type="text"
               placeholder="Ex: Electricity Company" />
     				<input 
+              value={this.state.number}
     					onChange={(e) => this.setState({number: e.target.value})}
     					type="number"
     					placeholder="Dollar amount" />

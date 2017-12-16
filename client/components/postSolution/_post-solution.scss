@@ -70,36 +70,84 @@
 			width: 100%;
 			margin-bottom: 30px;
 			&>textarea {
-				outline: none;
-				border: none;
-				height: 100px;
-				min-height: 100px;
-				max-height: 100px;
-				width: 100%;
+				outline: none; border: none;
+				height: 100px; min-height: 100px; max-height: 100px;
+				width: 100%; max-width: 100%; min-width: 100%;
 				border-radius: 2.5px;
 				background: #E4E5EA;
 				padding: 5px;
 			}
 			&>fieldset{
-				outline: none;
-				border: none;
+				outline: none; border: none;
 			}
 			&>div {
 				&>input[type='checkbox'] {
 					background: #E4E5EA;
 				}
 			}
+			&>input {
+				outline: none; border: none;
+				width: 90%; max-width: 400px;
+				border-bottom: 1px solid $redish;
+				padding: 5px;
+				border-radius: 0;
+				margin-bottom: 30px; margin-top: 10px;
+			}
 		}
-		&>button {
-			outline: none;
-			border: none;
+		&>.ps-button {
+			outline: none; border: none;
 			height: 50px;
 			width: 220px;
 			border-radius: 2.5px;
-			background: #52E362;
-			color: #fff;
+			background: #52E362; color: #fff;
 			@include buttonShadow;
 			margin-bottom: 50px;
+			position: relative;
+			transition-duration: 0.3s;
+			overflow: hidden;
+			&>img {
+				position: absolute;
+				top: 7.5px;
+				left: 7.5px;
+				height: 35px;
+				width: 35px;
+				transform: scale(0);
+				transition-duration: 0.3s;
+			}
+		}
+		&>.ps-button-loading {
+			width: 50px;
+			border-radius: 50%;
+			color: #52E362;
+			transition: color 0.2s 0s, width 0.3s 0s, border-radius 0.25s 0.1s;
+			&>img:first-of-type {
+				transform: scale(1);
+				transition-delay: 0.3s;
+			}
+		}
+		&>.ps-button-good {
+			width: 50px;
+			border-radius: 50%;
+			color: #52E362;
+			transition: color 0.2s 0s, width 0.3s 0s, border-radius 0.25s 0.1s;
+			&>img:nth-of-type(2) {
+				transform: scale(1);
+				transition-delay: 0.3s;
+			}
+		}
+		&>.ps-button-error {
+			background: $redish;
+			width: 50px;
+			border-radius: 50%;
+			color: $redish;
+			transition: background 0.2 0s, 
+						color 0.2s 0s, 
+						width 0.3s 0s, 
+						border-radius 0.25s 0.1s;
+			&>img:last-of-type {
+				transform: scale(1);
+				transition-delay: 0.3s;
+			}
 		}
 	}
 }

@@ -21,13 +21,17 @@ export default class AddManager extends Component {
       this.setState({ classes: 'add-manager add-manager-loading' });
       Meteor.call('groupAccount.inviteManager', text, (err, res) => {
         if(err) {
-          console.log(err);
+          // console.log(err);
+          this.props.haveAToast('Error:', 'There was a network connection problem. Please try again.');
         } else {
+          this.props.haveAToast('Success:', `You added ${text} to your list of invited managers`);
           setTimeout(() => {
             this.setState({ text: "", classes: "add-manager" });
           }, 1000);
         }
       });
+    } else {
+      this.props.haveAToast('Error:', "The manager's name is required");
     }
   }
 

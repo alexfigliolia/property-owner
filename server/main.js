@@ -91,6 +91,31 @@ Meteor.methods({
     });
   },
 
+  'issue.postSolution'(id, solution) {
+    check(id, String);
+    check(solution.budget, Number);
+    return Issues.update({ _id: id }, {
+      $set: {
+        solved: true,
+        'solution.description': solution.description,
+        'solution.products': solution.products,
+        'solution.budget': solution.budget,
+        'solution.postedBy': Meteor.user().name
+      }
+    });
+  },
+
+  'issue.markComplete'(id, amt) {
+    check(id, String);
+    check(amt, Number);
+    return Issues.update({ _id: id }, {
+      $set: {
+        'solution.completed': true,
+        'solution.spent': amt
+      }
+    });
+  },
+
   'issue.delete'(id) {
     check(id, String);
     return Issues.remove({_id: id});
@@ -133,11 +158,7 @@ Meteor.methods({
     check(text, String);
     check(convoId, String);
     let sentTo;
-    if('name' in to) {
-      sentTo = to;
-    } else {
-      sentTo = 'group'
-    }
+    if('name' in to) { sentTo = to } else { sentTo = 'group' }
     return Messages.insert({
       from: sentFrom,
       to: sentTo,

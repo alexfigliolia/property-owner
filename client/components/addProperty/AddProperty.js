@@ -15,20 +15,23 @@ export default class AddProperty extends Component {
     if(prop.value !== "") {
       if(mname.value === ""){
         mname.placeholder = "Enter 'none' if no manager";
+        this.props.haveAToast('Error:', "Plase enter 'none' if this property has no manager");
       } else {
         const color = generateColor2(this.props.properties.length);
         Meteor.call('properties.create', prop.value, mname.value, color[0], color[1], (err, res) => {
           if(err) {
             console.log(err);
           } else {
+            this.props.togglePropInput();
+            this.props.haveAToast('New property created:', `You created property "${prop.value}"! You can configure on it in your menu.`);
             prop.value = ""; 
             mname.value = "";
-            this.props.togglePropInput();
           }
         })
       }
     } else {
       prop.placeholder = "Enter a property name";
+      this.props.haveAToast('Error:', "A name for the property is required");
     }
   }
 

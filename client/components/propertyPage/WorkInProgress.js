@@ -2,47 +2,52 @@ import React, { Component } from 'react';
 import { getFirstWord } from '../../../helpers/helpers';
 
 export default class WorkInProgress extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	handleCheck = (e) => {
     e.persist();
+    const id = e.target.dataset.id;
+    const targetParent = e.target.parentNode;
     if(e.target.className === "mac") {
-      e.target.parentNode.parentNode.childNodes[1].placeholder = "Dollar amount";
-      const issueIdx = e.target.dataset.idx;
-      const propIdx = this.props.propIndex;
-      const currentProperty = this.props.property;
-      let spent = e.target.parentNode.parentNode.childNodes[1].value;
-      if(spent !== "" & isNaN(spent) === false) {
-        (spent === "") ? spent = 0 : spent = spent;
-        e.target.parentNode.parentNode.parentNode.parentNode.classList.remove('work-progress-item-flip');
+      targetParent.parentNode.childNodes[1].placeholder = "Dollar amount";
+      let spent = parseFloat(targetParent.parentNode.childNodes[1].value);
+      if( !isNaN(spent) ) {
+        targetParent.parentNode.parentNode.parentNode.classList.remove('work-progress-item-flip');
         setTimeout(() => {
-          this.props.markAsComplete(propIdx, issueIdx, spent);
-          e.target.parentNode.parentNode.childNodes[1].value = "";
-        }, 200);
+          Meteor.call('issue.markComplete', id, spent, (err, res) => {
+            if(err) {
+              // console.log(err);
+              this.props.haveAToast("Error:", 'There was a problem with our connection. Please try again.');
+            } else {
+              targetParent.parentNode.childNodes[1].value = "";
+              this.props.haveAToast("Success:", "You marked an in-progress item as complete");
+            } 
+          });
+        }, 250);
       } else {
-        e.target.parentNode.parentNode.childNodes[1].value = "";
-        e.target.parentNode.parentNode.childNodes[1].placeholder = "Enter a number";
+        this.props.haveAToast("Error:", 'The total spent fixing this issue is required. You can use 0 if no money was spent.');
+        targetParent.parentNode.childNodes[1].value = "";
+        targetParent.parentNode.childNodes[1].placeholder = "Enter a number";
       }
     } else {
-      const issueIdx = e.target.dataset.idx;
-      const propIdx = this.props.propIndex;
-      const currentProperty = this.props.property;
-      let spent = 0;
-      e.target.parentNode.parentNode.parentNode.classList.remove('work-progress-item-flip');
+      targetParent.parentNode.parentNode.classList.remove('work-progress-item-flip');
       setTimeout(() => {
-        this.props.markAsComplete(propIdx, issueIdx, spent);
-      }, 200);
+        Meteor.call('issue.markComplete', id, 0, (err, res) => {
+          if(err) {
+            // console.log(err);
+            this.props.haveAToast("Error:", 'There was a problem with our connection. Please try again.');
+          } else {
+            this.props.haveAToast("Success:", `You marked the "${this.props.issue[e.target.dataset.idx].issue}" as complete`);
+          }
+        });
+      }, 250);
     }
   }
 
   showSpent = (e) => {
     e.persist();
-    if(e.target.dataset.budget === "true") {
-      e.target.parentNode.parentNode.childNodes[2].classList.add('show-spent');
-    } else {
+    if(e.target.dataset.budget == 0) {
       this.handleCheck(e);
+    } else {
+      e.target.parentNode.parentNode.childNodes[2].classList.add('show-spent'); 
     }
   }
 
@@ -61,9 +66,10 @@ export default class WorkInProgress extends Component {
                       <div>
                         <button data-selected="no" onClick={this.props.showMAC}>No</button>
                         <button 
-                          data-budget={(issue.solution.budget !== 0 && issue.solution.budget !== "0") ? "true" : "false" }
+                          data-budget={parseFloat(issue.solution.budget)}
                           data-selected="yes"
-                          data-idx={i} 
+                          data-id={issue._id} 
+                          data-idx={i}
                           onClick={this.showSpent}>Yes</button>
                       </div>
                       {
@@ -73,7 +79,11 @@ export default class WorkInProgress extends Component {
                           <input type="number" placeholder="Dollar amount"/>
                           <div>
                             <button onClick={this.props.cancelMAC}>Cancel</button>
-                            <button data-idx={i} onClick={this.handleCheck} className="mac">Mark complete</button>
+                            <button 
+                              data-idx={i}
+                              data-id={issue._id} 
+                              onClick={this.handleCheck} 
+                              className="mac">Mark complete</button>
                           </div>
                         </div>
                       }
@@ -101,16 +111,16 @@ export default class WorkInProgress extends Component {
                             <h4 
                               onClick={this.props.openChat} 
                               style={{
-                                  background: "#F66463",
-                                  width: "100%",
-                                  borderBottomLeftRadius: "5px",
-                                  cursor: "pointer"
-                              }}>{issue.solution.postedBy.name}</h4>
+                                background: "#F66463",
+                                width: "100%",
+                                borderBottomLeftRadius: "5px",
+                                cursor: "pointer"
+                              }}>{issue.solution.postedBy}</h4>
                           </div>
                       }
                     </div>
                     <button 
-                      data-idx={i} 
+                      data-id={issue._id} 
                       onClick={this.props.togglePostSolution}
                       className="solution-edit"></button>
                     <button 

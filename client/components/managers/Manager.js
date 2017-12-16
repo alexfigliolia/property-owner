@@ -23,8 +23,10 @@ export default class Manager extends Component {
     Meteor.call('groupAccounts.removeManager', this.props.name, (err, res) => {
       if(err) {
         console.log(err);
+        this.props.haveAToast('Error:', 'There was a problem with your network! Please try again');
       } else {
         this.setState({ classes: "manager manager-show" });
+        this.props.haveAToast('Success:', `You deleted ${this.props.name} from your list of invited managers`);
       }
     });
   }

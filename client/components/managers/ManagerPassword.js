@@ -21,11 +21,15 @@ export default class ManagerPassword extends Component {
       this.setState({ classes: 'add-manager manager-password manager-password-loading' });
       Meteor.call('groupAccount.setPassword', text, (err, res) => {
         if(err) {
-          console.log(err);
+          // console.log(err);
+          this.props.haveAToast('Error:', 'There was a network connection problem. Please try again.');
         } else {
+          this.props.haveAToast('Success:', 'You set the password for your managers. Make sure to give it to them to use when they are signing up for REACT for managers');
           this.onSuccess();
         }
       });
+    } else {
+      this.props.haveAToast('Error:', 'A new password is required in order to update the current one.');
     }
   }
 

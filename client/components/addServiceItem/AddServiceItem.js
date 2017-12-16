@@ -20,7 +20,7 @@ export default class AddServiceItem extends Component {
   submit = () => {
   	const { text } = this.state;
   	const { _id, property } = this.props.property;
-  	if(text.length > 4) {
+  	if(text.length > 3) {
   		this.setState({ classes: "psr psr-complete" });
   		const newIssue = {
   			propId: _id,
@@ -41,15 +41,19 @@ export default class AddServiceItem extends Component {
 	    }
   		Meteor.call('issues.create', _id, property, newIssue, (err, res) => {
   			if(err) {
-  				console.log(err);
+  				// console.log(err);
+          this.props.haveAToast('Error:', "Please check your inputs and try again.");
   			} else {
+          this.props.haveAToast(`${property}:`, 'A new outstanding issue was created for your property');
   				setTimeout(() => {
   					this.setState({ text: "", classes: "psr" });
   					this.props.handleCloser();
-  				}, 1500);
+  				}, 1000);
   			}
   		});
-  	}
+  	} else {
+      this.props.haveAToast('Error:', "Please describe the issue with more than 3 characters");
+    }
   }
 
   render = () => {

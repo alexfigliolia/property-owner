@@ -28,8 +28,10 @@ export default class EditProperty extends Component {
   	expRent = expRent === "" ? this.props.expectedRent : parseFloat(expRent);
   	Meteor.call('properties.edit', this.props.id, name, manager, expRent, (err, res) => {
   		if(err) {
-  			console.log(err);
+  			// console.log(err);
+        this.props.haveAToast('Error:', "There is a network connection error. Please try again soon.");
   		} else {
+        this.props.haveAToast(`${this.state.name === '' ? this.props.property.property : this.state.name} Updated:`, 'You successfully edited your property. Most changes should exibit immediately in your graphs');
   			setTimeout(() => {
   				this.props.handleCloser();
   				this.setState({
@@ -38,7 +40,7 @@ export default class EditProperty extends Component {
 			  		expRent: "",
 			  		classes: "save-btn"
   				});
-  			}, 800)
+  			}, 800);
   		}
   	})
   }

@@ -203,6 +203,7 @@ export default class PropertySetup extends Component {
                 if(err) console.log(err)
               });
             }
+            this.props.haveAToast('Success:', `You configured your "${this.props.property.property}" property!`)
           }
         });
       }, 1000);

@@ -15,6 +15,7 @@ import PayABill from './components/payABill/PayABill';
 import Accounting from './components/accounting/Accounting';
 import Chat from './components/chat/Chat';
 import PostSolution from './components/postSolution/PostSolution';
+import Toast from './components/toast/Toast';
 import './App.scss';
 
 export default class App extends Component {
@@ -51,6 +52,10 @@ export default class App extends Component {
       currentProperty: {},
       settingUpProperty: {},
       settingUpIndex: 0,
+      currentIssueId: '',
+      toastClasses: 'toast',
+      toastTitle: 'Sup Dog!',
+      toastMessage: 'You just did something and were awarded a toast',
       month: new Date().getMonth(),
       year: new Date().getUTCFullYear()
     }
@@ -221,12 +226,13 @@ export default class App extends Component {
   }
 
   //toggle post solution ui
-  togglePostSolution = () => {
+  togglePostSolution = (e) => {
     this.setState({
       postSolutionClasses: 'post-solution post-solution-show',
       appClasses: 'App no-scroll app-shadow',
       closerClasses: 'closer closer-show',
-      propertyPageClasses: 'property-page property-page-show app-shadow no-scroll'
+      propertyPageClasses: 'property-page property-page-show app-shadow no-scroll',
+      currentIssueId: e.target.dataset.id
     });
   }
 
@@ -297,6 +303,19 @@ export default class App extends Component {
     }, int);
   }
 
+  haveAToast = (t, m) => {
+    this.setState({
+      toastTitle: t,
+      toastMessage: m,
+      toastClasses: 'toast toast-show'
+    });
+    setTimeout(this.hideToast, 5000);
+  }
+
+  hideToast = () => {
+    this.setState({ toastClasses: 'toast' });
+  }
+
   //handle closing for all UI views
   handleCloser = () => {
     if(this.state.managersClasses === 'managers managers-show') {
@@ -361,6 +380,7 @@ export default class App extends Component {
         postSolutionClasses: 'post-solution',
         closerClasses: "closer",
         propertyPageClasses: "property-page property-page-show",
+        currentIssueId: null
       });
     }
   }
@@ -415,7 +435,8 @@ export default class App extends Component {
           <AddProperty
             classes={this.state.addPropClasses}
             togglePropInput={this.togglePropertyInput}
-            properties={this.state.properties} />
+            properties={this.state.properties}
+            haveAToast={this.haveAToast} />
         }
 
         {
@@ -432,7 +453,8 @@ export default class App extends Component {
             toggleCollectRent={this.toggleCollectRent}
             togglePayABill={this.togglePayABill}
             toggleAccounting={this.toggleAccounting}
-            togglePostSolution={this.togglePostSolution} />
+            togglePostSolution={this.togglePostSolution}
+            haveAToast={this.haveAToast} />
         }
 
         {
@@ -445,7 +467,8 @@ export default class App extends Component {
             setupProperty={this.updateProperty}
             user={this.state.user}
             toggleToast={this.toggleToast}
-            goHome={this.goHome} />
+            goHome={this.goHome}
+            haveAToast={this.haveAToast} />
         }
 
         {
@@ -453,7 +476,8 @@ export default class App extends Component {
           <Managers 
             classes={this.state.managersClasses}
             managers={this.state.managers}
-            code={this.state.managerCode} />
+            code={this.state.managerCode}
+            haveAToast={this.haveAToast} />
         }
 
         {
@@ -461,7 +485,8 @@ export default class App extends Component {
           <AddServiceItem
             classes={this.state.addServiceItemClasses}
             property={this.state.currentProperty}
-            handleCloser={this.handleCloser} />
+            handleCloser={this.handleCloser}
+            haveAToast={this.haveAToast} />
         }
 
         {
@@ -472,7 +497,8 @@ export default class App extends Component {
             name={this.state.currentProperty.property}
             manager={this.state.currentProperty.manager}
             expectedRent={this.state.currentProperty.monthRentExpected}
-            handleCloser={this.handleCloser} />
+            handleCloser={this.handleCloser}
+            haveAToast={this.haveAToast}  />
         }
 
         {
@@ -480,7 +506,8 @@ export default class App extends Component {
           <CollectRent
             classes={this.state.collectRentClasses}
             property={this.state.currentProperty}
-            handleCloser={this.handleCloser} />
+            handleCloser={this.handleCloser}
+            haveAToast={this.haveAToast} />
         }
 
         {
@@ -488,7 +515,8 @@ export default class App extends Component {
           <PayABill
             classes={this.state.payABillClasses}
             property={this.state.currentProperty}
-            handleCloser={this.handleCloser} />
+            handleCloser={this.handleCloser}
+            haveAToast={this.haveAToast} />
         }
 
         {
@@ -514,7 +542,11 @@ export default class App extends Component {
         {
           this.state.loggedIn &&
           <PostSolution 
-            classes={this.state.postSolutionClasses} />
+            classes={this.state.postSolutionClasses}
+            id={this.state.currentIssueId}
+            issue={this.state.issues.filter(issue => issue._id === this.state.currentIssueId)}
+            handleCloser={this.handleCloser}
+            haveAToast={this.haveAToast} />
         }
 
         {
@@ -532,6 +564,15 @@ export default class App extends Component {
           <button 
             onClick={this.handleCloser}
             className={this.state.closerClasses}></button>
+        }
+
+        {
+          this.state.loggedIn &&
+          <Toast 
+            classes={this.state.toastClasses}
+            title={this.state.toastTitle}
+            message={this.state.toastMessage}
+            hideToast={this.hideToast} />
         }
       </div>
     );

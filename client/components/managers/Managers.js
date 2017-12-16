@@ -9,7 +9,9 @@ const Managers = (props) => {
   		<div>
   			<h2>Managers</h2>
   			<p>Here, you can add and remove managers from your group</p>
-  			<AddManager classes={props.classes} />
+  			<AddManager 
+          classes={props.classes}
+          haveAToast={props.haveAToast} />
   			<div className="list">
   				{
             props.managers !== undefined &&
@@ -17,14 +19,16 @@ const Managers = (props) => {
               return(
                 <Manager 
                   key={i}
-                  name={manager} />
+                  name={manager}
+                  haveAToast={props.haveAToast} />
               );
             })
           }
   			</div>
         <ManagerPassword 
           code={props.code}
-          classes={props.classes} />
+          classes={props.classes}
+          haveAToast={props.haveAToast} />
   		</div>
   	</section> 
   );

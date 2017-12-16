@@ -5,6 +5,7 @@ import WorkInProgress from './WorkInProgress';
 import { getTotalForEachMonth } from '../../../helpers/helpers';
 
 export default class PropertyPage extends Component {
+  
   componentWillReceiveProps = (nextProps) => {
     if(nextProps.classes === 'property-page property-page-show' &&
        nextProps.property !== this.props.property) {
@@ -61,7 +62,8 @@ export default class PropertyPage extends Component {
             	showMAC={this.showMAC}
             	cancelMAC={this.cancelMAC}
               issues={outstanding}
-              togglePostSolution={this.props.togglePostSolution} />
+              togglePostSolution={this.props.togglePostSolution}
+              haveAToast={this.props.haveAToast} />
           }
           {
             inProgress.length > 0 &&
@@ -70,7 +72,8 @@ export default class PropertyPage extends Component {
             	showMAC={this.showMAC}
             	cancelMAC={this.cancelMAC}
               issues={inProgress}
-              togglePostSolution={this.props.togglePostSolution} />
+              togglePostSolution={this.props.togglePostSolution}
+              haveAToast={this.props.haveAToast} />
           }
         </div>
       </div>
