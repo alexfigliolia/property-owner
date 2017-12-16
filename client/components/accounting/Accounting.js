@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { commafy } from '../../../helpers/helpers';
-import jsPDF from 'jsPDF';
+import jsPDF from 'jspdf';
 
 export default class AccountingView extends Component {
   constructor(props) {
