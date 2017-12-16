@@ -31,6 +31,7 @@ const Header = (props) => {
           }
         </nav>
         <button onClick={props.togglePropInput}>Add Property</button>
+        <a onClick={Meteor.logout}>Logout</a>
   		</div>
   	</header>
   );

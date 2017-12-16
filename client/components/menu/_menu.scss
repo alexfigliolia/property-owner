@@ -86,7 +86,8 @@
 				color: #fff;
 			}
 			&:last-of-type {
-				border-bottom: none;
+				border-top: 1px solid rgba(#fff, 0.15);
+				border-bottom: 1px solid rgba(#fff, 0.15);
 			}
 			&:first-of-type:nth-of-type(2) {
 				border-top: 1px solid rgba(#fff, 0.15);
@@ -96,13 +97,13 @@
 			}
 		}
 		&>.new-property {
-				color: $redish;
+			color: $redish;
 		}
 		&>button {
 			outline: none;
 			border: none;
 			color: #fff;
-			margin: 15px 0;
+			margin: 15px 0 20px 0;
 			margin-top: 20px;
 			background: $redish;
 			@include buttonShadow;
