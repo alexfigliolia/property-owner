@@ -14,6 +14,7 @@ import CollectRent from './components/collectRent/CollectRent';
 import PayABill from './components/payABill/PayABill';
 import Accounting from './components/accounting/Accounting';
 import Chat from './components/chat/Chat';
+import PostSolution from './components/postSolution/PostSolution';
 import './App.scss';
 
 export default class App extends Component {
@@ -41,6 +42,7 @@ export default class App extends Component {
       accountingClasses: 'accounting',
       chatClasses: 'chat',
       toggleChatClasses: 'chat-toggler',
+      postSolutionClasses: 'post-solution',
     	properties: [],
       rentPayments: [],
       issues: [],
@@ -215,7 +217,17 @@ export default class App extends Component {
       appClasses: 'App no-scroll app-shadow',
       closerClasses: 'closer closer-show',
       propertyPageClasses: 'property-page property-page-show app-shadow no-scroll'
-    })
+    });
+  }
+
+  //toggle post solution ui
+  togglePostSolution = () => {
+    this.setState({
+      postSolutionClasses: 'post-solution post-solution-show',
+      appClasses: 'App no-scroll app-shadow',
+      closerClasses: 'closer closer-show',
+      propertyPageClasses: 'property-page property-page-show app-shadow no-scroll'
+    });
   }
 
   //open property page or property set up if not yet configured
@@ -344,6 +356,13 @@ export default class App extends Component {
         propertyPageClasses: "property-page property-page-show",
       });
     }
+    if(this.state.postSolutionClasses === 'post-solution post-solution-show') {
+      this.setState({
+        postSolutionClasses: 'post-solution',
+        closerClasses: "closer",
+        propertyPageClasses: "property-page property-page-show",
+      });
+    }
   }
 
   render = () => {
@@ -412,7 +431,8 @@ export default class App extends Component {
             toggleEditProperty={this.toggleEditProperty}
             toggleCollectRent={this.toggleCollectRent}
             togglePayABill={this.togglePayABill}
-            toggleAccounting={this.toggleAccounting} />
+            toggleAccounting={this.toggleAccounting}
+            togglePostSolution={this.togglePostSolution} />
         }
 
         {
@@ -489,6 +509,12 @@ export default class App extends Component {
             managers={this.state.managers}
             messages={this.props.messages}
             toggleChat={this.toggleChat} />
+        }
+
+        {
+          this.state.loggedIn &&
+          <PostSolution 
+            classes={this.state.postSolutionClasses} />
         }
 
         {

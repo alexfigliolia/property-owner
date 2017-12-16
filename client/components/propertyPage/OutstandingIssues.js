@@ -51,7 +51,7 @@ export default class OutstandingIssues extends Component {
                         <button onClick={this.props.showMAC}>Delete</button>
                         <button 
                           data-idx={i} 
-                          onClick={this.props.postSolution}>
+                          onClick={this.props.togglePostSolution}>
                           Solve</button>
                       </div>
                     }

@@ -60,7 +60,8 @@ export default class PropertyPage extends Component {
             	property={this.props.property}
             	showMAC={this.showMAC}
             	cancelMAC={this.cancelMAC}
-              issues={outstanding} />
+              issues={outstanding}
+              togglePostSolution={this.props.togglePostSolution} />
           }
           {
             inProgress.length > 0 &&
@@ -68,7 +69,8 @@ export default class PropertyPage extends Component {
             	property={this.props.property}
             	showMAC={this.showMAC}
             	cancelMAC={this.cancelMAC}
-              issues={inProgress} />
+              issues={inProgress}
+              togglePostSolution={this.props.togglePostSolution} />
           }
         </div>
       </div>

@@ -1,0 +1,111 @@
+.post-solution {
+	height: calc(100% - 50px);
+	width: 100%;
+	background: #fff;
+	position: fixed;
+	top: 50px;
+	left: 0;
+	z-index: 380;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
+	transform: translateY(-50%);
+	opacity: 0;
+	visibility: hidden;
+	transition-duration: 0.3s;
+	@media #{$mq-670} {
+		height: calc(100% - 80px);
+		top: 80px;
+	}
+	@media #{$mq-800} {
+		width: 750px;
+		left: calc(50% - 375px);
+		height: 500px;
+		top: calc(50% - 250px + 40px);
+		@include headerShadow;
+		border-radius: 2.5px;
+	}
+	@media #{$mq-1070} {
+		height: 600px;
+		top: calc(50% - 300px);
+		left: calc(50% - 375px + 100px);
+	}
+	@media #{$mq-h-1024} {
+		height: calc(80% - 80px);
+		top: calc( 10% + 80px);
+		width: 80%;
+		left: 10%;
+		@include headerShadow;
+	}
+	&>div {
+		@include center;
+		flex-direction: column;
+		width: 90%;
+		margin: auto;
+		&>h2 {
+			font-size: 2.2em;
+			font-weight: 200;
+			margin-top: 40px;
+			margin-bottom: 15px;
+			@include center; 
+			flex-direction: row;
+			&>div {
+				height: 50px;
+				width: 50px;
+				background: #58F066 url('check.svg') no-repeat center;
+				background-size: 30px 30px;
+				border-radius: 50%;
+				margin-right: 15px;
+				@include headerShadow;
+			}
+		}
+		&>p {
+			font-size: 1.3em;
+			margin-top: 0px;
+			margin-bottom: 40px;
+		}
+		&>div {
+			@include center;
+			flex-direction: column;
+			width: 100%;
+			margin-bottom: 30px;
+			&>textarea {
+				outline: none;
+				border: none;
+				height: 100px;
+				min-height: 100px;
+				max-height: 100px;
+				width: 100%;
+				border-radius: 2.5px;
+				background: #E4E5EA;
+				padding: 5px;
+			}
+			&>fieldset{
+				outline: none;
+				border: none;
+			}
+			&>div {
+				&>input[type='checkbox'] {
+					background: #E4E5EA;
+				}
+			}
+		}
+		&>button {
+			outline: none;
+			border: none;
+			height: 50px;
+			width: 220px;
+			border-radius: 2.5px;
+			background: #52E362;
+			color: #fff;
+			@include buttonShadow;
+			margin-bottom: 50px;
+		}
+	}
+}
+
+.post-solution-show {
+	transform: translateY(0%);
+	opacity: 1;
+	visibility: visible;
+}

@@ -111,7 +111,7 @@ export default class WorkInProgress extends Component {
                     </div>
                     <button 
                       data-idx={i} 
-                      onClick={this.props.postSolution}
+                      onClick={this.props.togglePostSolution}
                       className="solution-edit"></button>
                     <button 
                       data-idx={i} 
