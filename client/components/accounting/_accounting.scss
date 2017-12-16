@@ -7,6 +7,7 @@
 	left: 0;
 	z-index: 380;
 	overflow-y: scroll;
+	overflow-x: hidden;
 	-webkit-overflow-scrolling: touch;
 	transform: translateY(-50%);
 	opacity: 0;
@@ -25,7 +26,8 @@
 		border-radius: 2.5px;
 	}
 	@media #{$mq-1070} {
-		top: calc(50% - 250px);
+		height: 600px;
+		top: calc(50% - 300px);
 		left: calc(50% - 375px + 100px);
 	}
 	@media #{$mq-h-1024} {
@@ -145,6 +147,44 @@
 			&>.profit-loss>.table:last-of-type>h4:last-of-type {
 				color: #65B764;
 				font-weight: 700;
+			}
+		}
+		&>.save-button {
+			outline: none; border: none;
+			margin-top: 50px;
+			margin-bottom: 30px;
+			height: 50px;
+			width: 220px;
+			background: $darkred;
+			border-radius: 2.5px;
+			@include buttonShadow;
+			color: #fff;
+			font-size: 1em;
+			position: relative;
+			transition-duration: 0.3s;
+			overflow: hidden;
+			&>img{
+				height: 35px;
+				width: 35px;
+				position: absolute;
+				top: 7.5px;
+				left: 7.5px;
+				transform: scale(0);
+				transition-duration: 0.3s;
+			}
+		}
+		&>.saved {
+			width: 50px;
+			border-radius: 50%;
+			color: $redish;
+			background: $redish;
+			transform: width 0.3s 0s, 
+					   border-radius 0.3s 0.1s, 
+					   color 0.2s 0s,
+					   background 0.2s 0s;
+			&>img {
+				transform: scale(1);
+				transition-delay: 0.3s;
 			}
 		}
 	}

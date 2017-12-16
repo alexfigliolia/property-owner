@@ -4,7 +4,7 @@ const Menu = (props) => {
   return (
   	<div className={props.classes}>
   		<div>
-  			<a onClick={props.showRecent}>Messages</a>
+  			<a onClick={props.toggleChat}>Messages</a>
         <a onClick={props.toggleManagers}>Managers</a>
         <a onClick={props.goHome}>Dashboard</a>
         {

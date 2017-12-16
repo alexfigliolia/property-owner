@@ -9,6 +9,9 @@ const Dashboard = (props) => {
   props.issues.forEach(issue => { if(!issue.solution.completed) hasOutstanding = true });
   return (
   	<section className={props.classes}>
+      <button
+        onClick={props.toggleManagers} 
+        className="manager-button"></button>
   		<div>
 
   			<Graph

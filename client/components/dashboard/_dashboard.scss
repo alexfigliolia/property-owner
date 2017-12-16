@@ -4,6 +4,7 @@
 	@include center;
 	background:#1B2431;
 	transition-duration: 0.5s;
+	position: relative;
 	@media #{$mq-670} {
 		margin-top: 40px;
 	}
@@ -15,14 +16,14 @@
 	}
 	&>div {
 		@include center;
-		width: 100%;
+		width: 90%;
 		align-items: flex-start;
 		padding-bottom: 30px;
 		flex-direction: column;
 		margin-top: 50px;
-		max-width: 2000px;
+		// max-width: 2000px;
 		@media #{$mq-670} {
-			width: 95%;
+			// width: 95%;
 			margin-top: 50px;
 			justify-content: flex-start;
 			flex-direction: row;
@@ -31,9 +32,40 @@
 		@media #{$mq-1070} {
 			margin-top: 10px;
 			@include center;
-			justify-content: center;
-			align-items: center;
+			justify-content: flex-start;
+			// justify-content: center;
+			// align-items: center;
 		}
+		@media #{$mq-1700} {
+			width: 80%;
+			max-width: 1200px;
+		}
+	}
+}
+
+.manager-button {
+	display: none;
+	@media #{$mq-800} {
+		@include center;
+		outline: none; 
+		border: none;
+		position: fixed;
+		bottom: 20px;
+		left: 20px;
+		height: 70px;
+		width: 70px;
+		border-radius: 50%;
+		background: #FD9A77 url('super.svg') no-repeat center;
+		background-size: 40px 40px;
+		@include headerShadow;
+		z-index: 4;
+		transition-duration: 0.3s;
+		&:hover {
+			transform: scale(1.1);
+		}
+	}
+	@media #{$mq-1070} {
+		display: none;
 	}
 }
 

@@ -143,7 +143,7 @@ Meteor.publish('conversations', function() {
   if(currentUser) {
     const convos = Conversations.find({owners: currentUser}, {
       fields: {
-        label: 1,
+        type: 1,
         owners: 1
       }
     });

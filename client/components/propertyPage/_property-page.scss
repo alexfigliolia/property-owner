@@ -44,8 +44,14 @@
 		position: relative;
 		width: 100%;
 		padding-bottom: 50px;
+		@media #{$mq-670} {
+			padding-bottom: 80px;
+		}
 		@media #{$mq-800} {
 			margin-top: 35px;
+		}
+		@media #{$mq-1070} {
+			padding-bottom: 0px;
 		}
 		@media #{$mq-1700} {
 			max-width: 1260px;

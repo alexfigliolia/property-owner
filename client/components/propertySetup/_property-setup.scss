@@ -290,14 +290,14 @@ input[type='checkbox']:checked {
 	@include headerShadow;
 	transform: scale(0);
 	transition-duration: 0.3s;
-	@media #{$mq-800} {
+	@media #{$mq-670} {
 		top: 100px;
 		right: 20px;
 		background-size: 80% 80%;
 		height: 60px;
 		width: 60px;
 	}
-	@media #{$mq-1150} {
+	@media #{$mq-1070} {
 		top: 5%;
 		right: 5%
 	}

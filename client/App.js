@@ -13,6 +13,7 @@ import EditProperty from './components/editProperty/EditProperty';
 import CollectRent from './components/collectRent/CollectRent';
 import PayABill from './components/payABill/PayABill';
 import Accounting from './components/accounting/Accounting';
+import Chat from './components/chat/Chat';
 import './App.scss';
 
 export default class App extends Component {
@@ -38,6 +39,8 @@ export default class App extends Component {
       collectRentClasses: "c-rent",
       payABillClasses: 'pay-bill',
       accountingClasses: 'accounting',
+      chatClasses: 'chat',
+      toggleChatClasses: 'chat-toggler',
     	properties: [],
       rentPayments: [],
       issues: [],
@@ -51,6 +54,7 @@ export default class App extends Component {
     }
   }
 
+  //Handle incoming data
   componentWillReceiveProps = (nextProps) => {
     console.log(nextProps);
     if(nextProps.user === null || nextProps.id === null) {
@@ -100,7 +104,8 @@ export default class App extends Component {
                           "dashboard",
           propertyPageClasses: (prevState.propertyPageClasses === "property-page property-page-show") ?
                           `${prevState.propertyPageClasses} property-page-shift` :
-                          prevState.propertyPageClasses.replace("property-page-shift", ""),
+                          prevState.propertyPageClasses.replace("property-page-shift", "").trim(),
+          chatClasses: 'chat'
 	      }
     	}
     });
@@ -126,7 +131,7 @@ export default class App extends Component {
     });
   }
 
-  //set delay for drawer menu closing
+  //set delay for UI changes due to drawer menu closing
   setInt = () => {
     let int = 0;
     if(!this.state.burgerToggle) {
@@ -139,17 +144,14 @@ export default class App extends Component {
   //open manager view
   toggleManagers = () => {
     document.getElementById('managers').scrollTop = 0;
-    const int = this.setInt();
+    let int = this.setInt();
     setTimeout(() => {
-      this.setState(prevState => {
-        return {
-          managersClasses: "managers managers-show",
-          appClasses: "App no-scroll app-shadow",
-          closerClasses: "closer closer-show",
-          propertyPageClasses: prevState.propertyPageClasses === "property-page" ?
-                               "property-page" :
-                               "property-page property-page-show no-scroll app-shadow"
-        }
+      this.setState({
+        managersClasses: "managers managers-show",
+        appClasses: "App no-scroll app-shadow",
+        closerClasses: "closer closer-show",
+        propertyPageClasses: "property-page",
+        dashboardClasses: 'dashboard'
       });
     }, int);
   }
@@ -250,6 +252,23 @@ export default class App extends Component {
         });
       }, int);
     }
+  }
+
+  //toggle chat ui
+
+  toggleChat = () => {
+    const int = this.setInt();
+    setTimeout(() => {
+      this.setState(prevState => {
+        return {
+          chatClasses: prevState.chatClasses === 'chat' ? 'chat chat-show' : 'chat',
+          appClasses: prevState.chatClasses === 'chat' ? 'App no-scroll-mobile' : 'App',
+          toggleChatClasses: prevState.chatClasses === 'chat' ? 
+                             'chat-toggler chat-toggler-closer' 
+                             : 'chat-toggler' 
+        }
+      });
+    }, int);
   }
 
   //go home
@@ -356,7 +375,8 @@ export default class App extends Component {
             propPage={this.propertyPage}
             month={this.state.month}
             year={this.state.year}
-            issues={this.state.issues} />
+            issues={this.state.issues}
+            toggleManagers={this.toggleManagers} />
         }
 
       	{
@@ -367,7 +387,8 @@ export default class App extends Component {
             togglePropInput={this.togglePropertyInput}
             propPage={this.propertyPage}
             goHome={this.goHome}
-            toggleManagers={this.toggleManagers} />
+            toggleManagers={this.toggleManagers}
+            toggleChat={this.toggleChat} />
         }
 
       	{
@@ -458,6 +479,26 @@ export default class App extends Component {
             issues={this.state.issues.filter(issue => issue.propId === this.state.currentProperty._id)}
             rentPayments={this.state.rentPayments.filter(payment => payment.propId === this.state.currentProperty._id)}
             handleCloser={this.handleCloser} />
+        }
+
+        {
+          this.state.loggedIn &&
+          <Chat 
+            classes={this.state.chatClasses}
+            conversations={this.props.conversations}
+            managers={this.state.managers}
+            messages={this.props.messages}
+            toggleChat={this.toggleChat} />
+        }
+
+        {
+          this.state.loggedIn &&
+          <button 
+            onClick={this.toggleChat}
+            className={this.state.toggleChatClasses}>
+            <img src="mess.svg" alt="open messenger" />
+            <img src="close2.svg" alt="close messenger" />
+          </button>
         }
 
         {

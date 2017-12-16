@@ -38,6 +38,9 @@
 			font-size: 1.75em;
 			color: rgba($redish, 0.5);
 			color: $redish;
+			@media #{$mq-h-1024} {
+				font-size: 2.25em;
+			}
 		}
 		&>a:first-of-type,
 		&>a:nth-of-type(2),
@@ -48,6 +51,9 @@
 			padding: 5px 0;
 			padding-top: 7.5px;
 			color: #FD9A77;
+			@media #{$mq-h-1024} {
+				font-size: 1.75em;
+			}
 		}
 		&>a:nth-of-type(1) {
 			padding: 5px 0;
@@ -73,6 +79,9 @@
 			opacity: 0;
 			margin-left: auto;
 			border-bottom: 1px solid rgba($purple, 0.15);
+			@media #{$mq-h-1024} {
+				font-size: 1.6em;
+			}
 			&:hover {
 				color: #fff;
 			}
@@ -94,9 +103,8 @@
 			border: none;
 			color: #fff;
 			margin: 15px 0;
-			margin-top: 5px;
+			margin-top: 20px;
 			background: $redish;
-			// border: 2px solid #fff;
 			@include buttonShadow;
 			width: 80%;
 			height: 50px;

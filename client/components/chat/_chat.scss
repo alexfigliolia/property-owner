@@ -1,0 +1,235 @@
+.chat {
+	position: fixed;
+	top: 50px;
+	left: 0;
+	width: 100%;
+	height: calc(100% - 50px);
+	background: #fff;
+	@include center;
+	overflow-x: hidden;
+	transform: translateX(100%);
+	transition-duration: 0.3s;
+	z-index: 12;
+	@media #{$mq-670} {
+		height: 450px;
+		width: 450px;
+		left: auto;
+		right: 0;
+		bottom: 0;
+		top: auto;
+		border-top-left-radius: 5px;
+		@include leftShadow;
+	}
+	&>div {
+		width: 100%;
+		height: 100%;
+		@include center;
+		flex-direction: column;
+		justify-content: flex-start;
+		position: relative;
+		&>.chat-header {
+			@include center;
+			width: 100%;
+			height: 50px;
+			background: #f68084;
+			@include headerShadow;
+			z-index: 3;
+			&>div {
+				width: calc(100% - 20px);
+				@include center;
+				flex-direction: row;
+				justify-content: space-between;
+				&>button {
+					outline: none; border: none;
+					height: 35px; width: 35px;
+					border-radius: 0;
+					box-shadow: none;
+					&:first-of-type {
+						background: transparent url('contacts.svg') no-repeat center;
+						background-size: contain;
+					}
+					&:last-of-type {
+						background: transparent url('arrow-right.svg') no-repeat center;
+						background-size: contain;
+					}
+				}
+				&>h3 {
+					color: #fff;
+					font-weight: 200;
+					font-size: 1.5em;
+				}
+			}
+		}
+		&>.messages {
+			height: calc(100% - 110px);
+			width: 100%;
+			background: #fff;
+			overflow-y: scroll;
+			-webkit-overflow-scrolling: touch;
+			&>div {
+				@include center;
+				height: auto;
+				min-height: 100%;
+				width: 100%;
+				flex-direction: column;
+				justify-content: flex-start;
+				&>.message {
+					background: #E4E8E8;
+					border-radius: 20px;
+					padding: 12.5px 10px;
+					align-self: flex-start;
+					margin-left: 10px;
+					margin-top: 10px;
+					max-width: 80%;
+					@include center;
+					&:last-of-type{
+						margin-bottom: 10px;
+					}
+				}
+				&>.mine {
+					background: #F86F84;
+					color: #fff;
+					align-self: flex-end;
+					margin-left: 0;
+					margin-right: 10px;
+				}
+			}
+		}
+		&>.sender {
+			width: 100%;
+			height: 60px;
+			@include center;
+			flex-direction: row;
+			background: #EBEFEF;
+			@include topShadow;
+			&>textarea {
+				outline: none; border: none;
+				width: calc(100% - 60px);
+				background: #EBEFEF;
+				height: 60px;
+				max-height: 60px;
+				min-height: 60px;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				-ms-appearance: none;
+				appearance: none;
+			}
+			&>.s-button {
+				height: 60px;
+				width: 60px;
+				outline: none;
+				border: none;
+				border-radius: 50%;
+				position: relative;
+				background: $redish;
+				@include headerShadow;
+				overflow: hidden;
+				&>img {
+					height: 25px; width: 25px;
+					position: absolute;
+					top: 17.5px; left: 17.5px;
+					transition-duration: 0.3s;
+				}
+			}
+			&>.fly1 {
+				&>img {
+					transform: translateX(50px) translateY(-50px) rotate(-45deg);
+				}
+			}
+			&>.fly2 {
+				&>img {
+					transform: translateX(-70px) translateY(-40px) rotate(45deg);
+					transition-duration: 0s;
+				}
+			}
+			&>.fly3 {
+				&>img {
+					transform: translateX(0px) translateY(0px) rotate(0deg);
+					transition-duration: 0.3s;
+				}
+			}
+		}
+		&>.m-list {
+			position: absolute;
+			top: 50px;
+			left: 0;
+			@include rightShadow;
+			height: calc(100% - 50px);
+			width: 70%;
+			max-width: 225px;
+			background: #ECF0F0;
+			transform: translateX(-110%);
+			transition-duration: 0.3s;
+			&>div {
+				width: 100%;
+				height: auto;
+				overflow-y: scroll;
+				-webkit-overflow-scrolling: touch;
+				@include center;
+				flex-direction: column;
+				&>.contact-list-header {
+					font-size: 2em;
+					font-weight: 200;
+					color: $redish;
+					margin: 10px auto;
+				}
+				&>.manager-contact {
+					height: 50px;
+					border-top: 1px solid #fff;
+					@include center;
+					width: 100%;
+					color: #595959;
+					cursor: pointer;
+				}
+			}
+		}
+		&>.m-list-show {
+			transform: translateX(0%);
+		}
+	}
+}
+
+.chat-toggler {
+	display: none;
+	@media #{$mq-800} {
+		outline: none; border: none;
+		height: 70px; width: 70px;
+		position: fixed;
+		bottom: 20px; right: 20px;
+		border-radius: 50%;
+		z-index: 34;
+		@include headerShadow;
+		background: $redish;
+		transition-duration: 0.3s;
+		@include center;
+		&>img {
+			position: absolute;
+			height: 35px;
+			width: 35px;
+			top: 17.5px;
+			left: 17.5px;
+			transition-duration: 0.3s;
+			&:last-of-type {
+				height: 40px; width: 40px;
+				top: 15px; left: 15px;
+				transform: scale(0);
+			}
+		}
+	}
+}
+
+.chat-toggler-closer {
+	@media #{$mq-800} {
+		transform: translateX(-450px) rotate(360deg);
+		&>img:first-of-type {
+			transform: scale(0)
+		}
+		&>img:last-of-type {
+			transform: scale(1);
+		}
+	}
+}
+
+.chat-show {
+	transform: translateX(0%);
+}

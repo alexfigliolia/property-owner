@@ -17,7 +17,7 @@
 		top: 80px;
 	}
 	@media #{$mq-800} {
-		height: calc(100% - 80px);
+		// height: calc(100% - 80px);
 		width: 750px;
 		left: calc(50% - 375px);
 		height: 500px;

@@ -1,10 +1,10 @@
 .outstanding-snap-shot{
 	background: $redish;
 	@media #{$mq-800} {
-		width: 47.5%;
+		// width: 47.5%;
 		@include center;
 		// margin: 0;
-		margin-top: 20px;
+		// margin-top: 20px;
 		// margin-left: 1.5%;
 	}
 	&>div{

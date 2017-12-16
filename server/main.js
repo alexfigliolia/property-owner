@@ -127,4 +127,35 @@ Meteor.methods({
     })
   },
 
+  'messages.send'(sentFrom, to, text, convoId) {
+    check(sentFrom, Object);
+    check(to, Object);
+    check(text, String);
+    check(convoId, String);
+    let sentTo;
+    if('name' in to) {
+      sentTo = to;
+    } else {
+      sentTo = 'group'
+    }
+    return Messages.insert({
+      from: sentFrom,
+      to: sentTo,
+      text: text,
+      date: new Date(),
+      conversation: convoId
+    })
+  },
+
+  // 'convo.create'(id) {
+  //   check(id, String);
+  //   const them = Meteor.users.findOne({_id: id}, { _id: 1, name: 1, image: 1});
+  //   const exists = Conversations.find({ owners: {$all: [them._id, Meteor.userId()]} }).fetch();
+  //   if(exists.length === 0) {
+  //     return Conversations.insert({
+  //       owners: [them._id, Meteor.userId()]
+  //     });
+  //   }
+  // },
+
 });
