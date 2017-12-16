@@ -17,7 +17,7 @@ body,
 	@include center;
 	height: auto;
 }
-
+@import 'components/loader';
 @import 'components/login/login';
 @import 'components/header/header';
 @import 'components/header/burger/burger';

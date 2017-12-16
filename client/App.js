@@ -59,6 +59,7 @@ export default class App extends Component {
       month: new Date().getMonth(),
       year: new Date().getUTCFullYear()
     }
+    this.loader = document.getElementById('appLoader');
   }
 
   //Handle incoming data
@@ -80,6 +81,10 @@ export default class App extends Component {
         managers: accExists ? nextProps.groupAccount[0].managerNames : [],
         managerCode: accExists ? nextProps.groupAccount[0].password : ""
       });
+    }
+    if(this.loader) {
+      this.loader.classList.add('app-loader-hidden');
+      setTimeout(() => { this.loader.remove() }, 300);
     }
   }
 
