@@ -102,13 +102,23 @@ export default class Chat extends Component {
     						this.props.messages.filter(message => {
     							return message.conversation === this.state.conversation._id
     						}).map((message, i) => {
-    							return(
-    								<div 
-    									key={i} 
-    									className={message.from._id === Meteor.userId() ? "message mine" : "message"}>
-    									{ message.text }
-    								</div>
-    							);
+                  if(this.state.currentChat === 'Group') {
+                    return(
+                      <div 
+                        key={i} 
+                        className={message.from._id === Meteor.userId() ? "message mine" : "message"}>
+                        {message.from.name}:<br/>{message.text}
+                      </div>
+                    );
+                  } else {
+                    return(
+                      <div 
+                        key={i} 
+                        className={message.from._id === Meteor.userId() ? "message mine" : "message"}>
+                        { message.text }
+                      </div>
+                    );
+                  }
     						})
     					}
     				</div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { getFirstWord } from '../../../helpers/helpers';
 
 export default class WorkInProgress extends Component {
+
 	handleCheck = (e) => {
     e.persist();
     const id = e.target.dataset.id;
@@ -124,8 +125,9 @@ export default class WorkInProgress extends Component {
                       onClick={this.props.togglePostSolution}
                       className="solution-edit"></button>
                     <button 
-                      data-idx={i} 
-                      onClick={this.props.viewImages}
+                      data-idx={i}
+                      data-id={issue._id} 
+                      onClick={this.props.toggleIssueImages}
                       className="view-service-images"></button>
                   </div>
                 );

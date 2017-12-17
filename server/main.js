@@ -116,6 +116,12 @@ Meteor.methods({
     });
   },
 
+  'issue.addImage'(id, img) {
+    check(id, String);
+    check(img, String);
+    return Issues.update( { _id: id }, { $push: { images: img } } );
+  },
+
   'issue.delete'(id) {
     check(id, String);
     return Issues.remove({_id: id});

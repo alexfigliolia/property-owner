@@ -63,6 +63,7 @@ export default class PropertyPage extends Component {
             	cancelMAC={this.cancelMAC}
               issues={outstanding}
               togglePostSolution={this.props.togglePostSolution}
+              toggleIssueImages={this.props.toggleIssueImages}
               haveAToast={this.props.haveAToast} />
           }
           {
@@ -73,6 +74,7 @@ export default class PropertyPage extends Component {
             	cancelMAC={this.cancelMAC}
               issues={inProgress}
               togglePostSolution={this.props.togglePostSolution}
+              toggleIssueImages={this.props.toggleIssueImages}
               haveAToast={this.props.haveAToast} />
           }
         </div>

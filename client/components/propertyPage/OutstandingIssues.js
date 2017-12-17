@@ -37,7 +37,8 @@ export default class OutstandingIssues extends Component {
                   <div key={i} className="has-outstanding-item">
                     <button 
                       data-idx={i} 
-                      onClick={this.props.viewImages}
+                      data-id={issue._id} 
+                      onClick={this.props.toggleIssueImages}
                       className="view-service-images"></button>
                     <div className="back">
                       <h3>Are you sure you want to delete this item?</h3>

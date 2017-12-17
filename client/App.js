@@ -16,6 +16,7 @@ import Accounting from './components/accounting/Accounting';
 import Chat from './components/chat/Chat';
 import PostSolution from './components/postSolution/PostSolution';
 import Toast from './components/toast/Toast';
+import IssueImages from './components/issueImages/IssueImages';
 import './App.scss';
 
 export default class App extends Component {
@@ -44,6 +45,7 @@ export default class App extends Component {
       chatClasses: 'chat',
       toggleChatClasses: 'chat-toggler',
       postSolutionClasses: 'post-solution',
+      issueImagesClasses: 'issue-images',
     	properties: [],
       rentPayments: [],
       issues: [],
@@ -241,6 +243,16 @@ export default class App extends Component {
     });
   }
 
+  toggleIssueImages = (e) => {
+    this.setState({
+      issueImagesClasses: 'issue-images issue-images-show',
+      appClasses: 'App no-scroll app-shadow',
+      closerClasses: 'closer closer-show',
+      propertyPageClasses: 'property-page property-page-show app-shadow no-scroll',
+      currentIssueId: e.target.dataset.id
+    });
+  }
+
   //open property page or property set up if not yet configured
   propertyPage = (e) => {
     const int = this.setInt();
@@ -388,6 +400,14 @@ export default class App extends Component {
         currentIssueId: null
       });
     }
+    if(this.state.issueImagesClasses === 'issue-images issue-images-show') {
+      this.setState({
+        issueImagesClasses: 'issue-images',
+        closerClasses: "closer",
+        propertyPageClasses: "property-page property-page-show",
+        currentIssueId: null
+      });
+    }
   }
 
   render = () => {
@@ -459,6 +479,7 @@ export default class App extends Component {
             togglePayABill={this.togglePayABill}
             toggleAccounting={this.toggleAccounting}
             togglePostSolution={this.togglePostSolution}
+            toggleIssueImages={this.toggleIssueImages}
             haveAToast={this.haveAToast} />
         }
 
@@ -556,11 +577,19 @@ export default class App extends Component {
 
         {
           this.state.loggedIn &&
+          <IssueImages 
+            classes={this.state.issueImagesClasses}
+            id={this.state.currentIssueId}
+            issue={this.state.issues.filter(issue => issue._id === this.state.currentIssueId)} />
+        }
+
+        {
+          this.state.loggedIn &&
           <button 
             onClick={this.toggleChat}
             className={this.state.toggleChatClasses}>
-            <img src="mess.svg" alt="open messenger" />
-            <img src="close2.svg" alt="close messenger" />
+              <img src="mess.svg" alt="open messenger" />
+              <img src="close2.svg" alt="close messenger" />
           </button>
         }
 

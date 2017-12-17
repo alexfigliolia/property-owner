@@ -1,0 +1,106 @@
+.issue-images {
+	height: calc(100% - 50px);
+	width: 100%;
+	background: #fff;
+	position: fixed;
+	top: 50px;
+	left: 0;
+	z-index: 380;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	// @include center;
+	transform: translateY(-50%);
+	opacity: 0;
+	visibility: hidden;
+	transition-duration: 0.3s;
+	@media #{$mq-670} {
+		height: calc(100% - 80px);
+		top: 80px;
+	}
+	@media #{$mq-800} {
+		width: 750px;
+		left: calc(50% - 375px);
+		height: 500px;
+		top: calc(50% - 250px + 40px);
+		@include headerShadow;
+		border-radius: 2.5px;
+	}
+	@media #{$mq-1070} {
+		top: calc(50% - 250px);
+		left: calc(50% - 375px + 100px);
+	}
+	@media #{$mq-h-1024} {
+		height: calc(80% - 80px);
+		top: calc( 10% + 80px);
+		width: 80%;
+		left: 10%;
+		@include headerShadow;
+	}
+	&>div {
+		@include center;
+		width: 90%;
+		flex-direction: column;
+		margin: auto;
+		position: relative;
+		&>h2 {
+			font-size: 2em;
+			font-weight: 200;
+			margin: 0;
+			margin-top: 60px;
+			margin-bottom: 10px;
+		}
+		&>p {
+			text-align: center;
+			margin-top: 0;
+			width: 85%;
+		}
+		&>.images {
+			width: 100%;
+			@include center;
+			flex-direction: column;
+			max-width: 400px;
+			margin-top: 20px;
+			margin-bottom: 30px;
+			&>img {
+				width: 100%;
+				height: auto;
+				margin-bottom: 20px;
+				@include headerShadow;
+			}
+		}
+		&>.upload {
+			position: absolute;
+			top: 10px;
+			left: calc(-5% + 10px);
+			width: 60px;
+			height: 60px;
+			background: $redish url('upload.svg') no-repeat center;
+			background-size: 30px 30px;
+			@include headerShadow;
+			border-radius: 50%;
+			cursor: pointer;
+			&>input {
+				cursor: pointer;
+				-moz-appearance: none;
+				-webkit-appearance: none;
+				-ms-appearance: none;
+				-o-appearance: none;
+				appearance: none;
+				height: 60px;
+				width: 60px;
+				border-radius: 50%;
+				background: transparent;
+				color: transparent;
+				outline: none;
+				border: none;
+				opacity: 0;
+			}
+		}
+	}
+}
+
+.issue-images-show {
+	transform: translateY(0%);
+	opacity: 1;
+	visibility: visible;
+}

@@ -137,7 +137,7 @@ export default class AccountingView extends Component {
             className={this.state.saveClasses}
             onClick={this.savePDF}
             id="saveBTN">
-            Save as PDF?
+              Save as PDF
             <img src="check.svg" alt="saved" />
           </button>
         </div>
@@ -150,15 +150,15 @@ const createAccountingPDF = async (rentPayments, issues, range, property, months
   const doc = new jsPDF();
   const pageHeight = doc.internal.pageSize.height;
   let x = 15, y = 15, pTotal = 0, eTotal = 0;
-  doc.setFontType("bold");
-  doc.setFontSize(22);
-  doc.text(`${property.property} Accounting:`, x, y);
-  y+=15;
-  doc.text(`${months[parseInt(range[1]) - 1].substring(0, 3)}-${range[0]} to ${months[parseInt(range[3]) - 1].substring(0, 3)}-${range[2]}`, x, y);
-  y+=30;
-  doc.setTextColor(0, 225, 40);
+  doc.setFontSize(20);
+  doc.text(105, y, `${property.property} Accounting:`, null, null, 'center');
+  y+=10;
   doc.setFontSize(18);
-  doc.text('Income', x, y);
+  doc.text(105, y, `${months[parseInt(range[1]) - 1].substring(0, 3)}-${range[0]} to ${months[parseInt(range[3]) - 1].substring(0, 3)}-${range[2]}`, null, null, 'center');
+  y+=30;
+  doc.setTextColor(30, 200, 80);
+  doc.setFontSize(16);
+  doc.text(105, y, 'Income', null, null, 'center');
   doc.setFontType("normal");
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
@@ -175,25 +175,28 @@ const createAccountingPDF = async (rentPayments, issues, range, property, months
           doc.addPage();
           y = 15;
         }
-        doc.text(`${(date.getMonth() + 1) + "/" + day + "/" + year.toString().substring(2, 4)}__________Tenant__________$${commafy(payment.payment.toFixed(2))}`, 15, y);
+        doc.text(105, y, `${(date.getMonth() + 1) + "/" + day + "/" + year.toString().substring(2, 4)}                                 Tenant                                 $${commafy(payment.payment.toFixed(2))}`, null, null, 'center');
+        y+=5;
+        doc.line(30, y, 180, y);
       }
   });
-  y+=10;
+  y+=15;
   if(y > pageHeight - 15) {
     doc.addPage();
     y = 15;
   }
-  doc.setFontType("bold");
-  doc.setFontSize(18);
-  doc.setTextColor(0, 225, 40);
-  doc.text(`Total: $${commafy(pTotal.toFixed(2))}`, 15, y);
-  y+=30;
+  doc.setFontSize(16);
+  doc.setTextColor(30, 200, 80);
+  doc.text(170, y, `Revenue:  $${commafy(pTotal.toFixed(2))}`, null, null, 'right');
+  y+=12.5;
+  doc.line(30, y, 180, y);
+  y+=15;
   if(y > pageHeight -15) {
     doc.addPage();
     y = 15;
   }
   doc.setTextColor(255, 0, 75);
-  doc.text('Expenses', 15, y);
+  doc.text(105, y, 'Expenses', null, null, 'center');
   doc.setFontType("normal");
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
@@ -210,18 +213,21 @@ const createAccountingPDF = async (rentPayments, issues, range, property, months
           doc.addPage();
           y = 15;
         }
-        doc.text(`${(date.getMonth() + 1) + "/" + day + "/" + year.toString().substring(2, 4)}__________${expense.solution.products}_________$${commafy(parseFloat(expense.solution.spent).toFixed(2))}`, 15, y);
+        doc.text(105, y, `${(date.getMonth() + 1) + "/" + day + "/" + year.toString().substring(2, 4)}                   ${expense.solution.products}                   $${commafy(parseFloat(expense.solution.spent).toFixed(2))}`, null, null, 'center');
+        y+=5;
+        doc.line(30, y, 180, y);
       }
   });
-  y+=10;
+  y+=15;
   if(y > pageHeight -15) {
     doc.addPage();
     y = 15;
   }
-  doc.setFontType("bold");
-  doc.setFontSize(18);
+  doc.setFontSize(16);
   doc.setTextColor(255, 0, 75);
-  doc.text(`Total: $${commafy(eTotal.toFixed(2))}`, 15, y);
+  doc.text(170, y, `Expenses:  $${commafy(eTotal.toFixed(2))}`, null, null, 'right');
+  y+=12.5;
+  doc.line(30, y, 180, y);
   y+=15;
   if(y > pageHeight -15) {
     doc.addPage();
@@ -230,11 +236,11 @@ const createAccountingPDF = async (rentPayments, issues, range, property, months
   const pl = pTotal - eTotal;
   const indic = pl >= 0 ? 'Profit' : 'Loss'; 
   if(indic === 'Profit') {
-    doc.setTextColor(0, 225, 40);
+    doc.setTextColor(30, 200, 80);
   } else {
     doc.setTextColor(255, 0, 75);
   }
-  doc.text(`${indic}: $${commafy(pl.toFixed(2))}`, 15, y);
+  doc.text(170, y, `${indic}:  $${commafy(pl.toFixed(2))}`, null, null, 'right');
   const fileName = `${property.property} ${months[parseInt(range[1]) - 1].substring(0, 3)}-${range[0]} to ${months[parseInt(range[3]) - 1].substring(0, 3)}-${range[2]}.pdf`;
   doc.save(fileName);
 }
