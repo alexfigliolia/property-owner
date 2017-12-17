@@ -20,6 +20,7 @@ Accounts.onCreateUser((options, user) => {
   user.roll = "owner";
   user.managerPassword = options.name;
   user.managers = [];
+  user.groupId = '';
   return user;
 });
 
@@ -57,7 +58,7 @@ Meteor.publish('properties', function() {
         color2:1,
         owner: 1,
         _id: 1,
-        groupId: 1
+        group: 1
      }})
   ];
   updateProperties(props);

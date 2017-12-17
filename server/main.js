@@ -7,11 +7,15 @@ import { Properties, Issues, Payments, Conversations, Messages, GroupAccounts } 
 Meteor.methods({
 
   'groupAccount.create'(){
-    return GroupAccounts.insert({
+    GroupAccounts.insert({
       owner: Meteor.userId(),
       group: Meteor.user().name,
       password: "",
       managerIds: []
+    });
+    const group = GroupAccounts.find({owner: Meteor.userId()}).fetch();
+    return Meteor.users.update({_id: Meteor.userId()}, {
+      $set: { groupId: group[0]._id }
     });
   },
 
