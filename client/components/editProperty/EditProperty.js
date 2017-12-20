@@ -31,7 +31,7 @@ export default class EditProperty extends Component {
   			// console.log(err);
         this.props.haveAToast('Error:', "There is a network connection error. Please try again soon.");
   		} else {
-        this.props.haveAToast(`${this.state.name === '' ? this.props.property.property : this.state.name} Updated:`, 'You successfully edited your property. Most changes should exibit immediately in your graphs');
+        this.props.haveAToast(`${this.state.name === '' ? this.props.name : this.state.name} Updated:`, 'You successfully edited your property. Most changes should exibit immediately in your graphs');
   			setTimeout(() => {
   				this.props.handleCloser();
   				this.setState({

@@ -365,6 +365,7 @@ export default class App extends Component {
       });
     }
     if(this.state.editPropertyClasses === "edit-property edit-property-show") {
+      console.log('called');
       this.setState({
         editPropertyClasses: "edit-property",
         closerClasses: "closer",
