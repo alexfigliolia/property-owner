@@ -35,7 +35,8 @@ Meteor.publish('userData', function() {
        fields: {
           "name" : 1,
           "managers": 1,
-          "_id": 1
+          "_id": 1,
+          "roll": 1
        }
      });
   } else {

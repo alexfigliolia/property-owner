@@ -79,13 +79,22 @@ export default class Login extends Component {
         // console.log(err.reason);
         this.setState({ buttonClasses: '', loginErrors: err.reason });
       } else {
-        this.setState({
-          loginErrors: "",
-          buttonClasses: 'button-loading good-to-go'
-        }, () => {
-        	this.resetState();
-        });
-        document.body.scrollTop = 0;
+        if(Meteor.user().roll === 'manager') {
+        	this.setState({
+        		loginErrors: 'This software is for property owners!',
+        		buttonClasses: ''
+        	}, () => {
+        		Meteor.logout();
+        	});
+        } else {
+        	this.setState({
+	          loginErrors: "",
+	          buttonClasses: 'button-loading good-to-go'
+	        }, () => {
+	        	this.resetState();
+        	});
+        	document.body.scrollTop = 0;
+        }
       }
     });
   }
