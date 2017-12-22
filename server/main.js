@@ -6,6 +6,16 @@ import { Properties, Issues, Payments, Conversations, Messages, GroupAccounts } 
 
 Meteor.methods({
 
+  'users.get'(arr) {
+    check(arr, Array);
+    if(arr.length === 0) return [];
+    const objs = Meteor.users.find(
+      { _id: { $in: arr } }, 
+      {fields: {name: 1, _id: 1 }}
+    ).fetch();
+    return objs;
+  },
+
   'groupAccount.create'(){
     GroupAccounts.insert({
       owner: Meteor.userId(),
@@ -114,6 +124,7 @@ Meteor.methods({
     check(amt, Number);
     return Issues.update({ _id: id }, {
       $set: {
+        date: new Date(),
         'solution.completed': true,
         'solution.spent': amt
       }

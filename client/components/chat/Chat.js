@@ -8,7 +8,8 @@ export default class Chat extends Component {
   		currentChat: 'Group',
   		text: '',
   		conversation: this.props.conversations[0],
-  		senderClasses: 's-button'
+  		senderClasses: 's-button',
+      managers: []
   	}
   }
 
@@ -25,6 +26,27 @@ export default class Chat extends Component {
   	setTimeout(() => {
   		this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
   	}, 100);
+    if(this.props.conversatons !== nextProps.conversations) {
+      this.getGroup(nextProps.conversations);
+    }
+  }
+
+  getGroup = (convos) => {
+    const peops = [];
+    convos.forEach(convo => {
+      convo.owners.forEach(dude => {
+        if(peops.indexOf(dude) === -1 && dude !== Meteor.userId()) {
+          peops.push(dude);
+        }
+      });
+    });
+    Meteor.call('users.get', peops, (err, res) => {
+      if(err) {
+        console.log(err);
+      } else {
+        this.setState({ managers: res });
+      }
+    })
   }
 
   toggleContacts = () => {
@@ -36,20 +58,21 @@ export default class Chat extends Component {
 
   changeChat = (e) => {
   	const cc = e.target.dataset.chat;
+    const id = e.target.dataset.id;
   	let conversation;
   	if(cc === 'Group') {
-  		convo = this.props.conversations.filter(convo => convo.type === 'group');
+  		conversation = this.props.conversations.filter(convo => convo.type === 'group');
   	} else {
-  		convo = this.props.conversations.filter(convo => {
+  		conversation = this.props.conversations.filter(convo => {
   			return convo.type !== 'group' && 
   						 convo.owners.indexOf(Meteor.userId()) !== -1 &&
-  						 convo.owners.indexOf(cc._id) !== -1
+  						 convo.owners.indexOf(id) !== -1
   		});
   	}
   	this.setState({
   		currentChat: cc,
   		contactsClasses: 'm-list',
-  		conversation: convo[0]
+  		conversation: conversation[0]
   	});
     setTimeout(() => {
       this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
@@ -59,11 +82,7 @@ export default class Chat extends Component {
   sendMessage = () => {
   	if(this.state.text !== '') {
   		Meteor.call('messages.send', Meteor.user(), {}, this.state.text, this.state.conversation._id, (err, res) => {
-	  		if(err) {
-	  			console.log(err);
-	  		} else {
-	  			this.setState({ text: '' });
-	  		}
+	  		if(err) { console.log(err) } else { this.setState({ text: '' }) }
 	  	});
 	  	this.fly();
   	}
@@ -140,14 +159,15 @@ export default class Chat extends Component {
     						className='manager-contact'
     						onClick={this.changeChat}>Group</div>
     					{
-    						this.props.managers.map((guy, i) => {
+    						this.state.managers.map((guy, i) => {
     							return (
     								<div 
     									key={i} 
-    									data-chat={guy}
+                      data-id={guy._id}
+    									data-chat={guy.name}
     									className='manager-contact'
     									onClick={this.changeChat}>
-    									{guy}
+    									{guy.name}
     								</div>
     							);
     						})
