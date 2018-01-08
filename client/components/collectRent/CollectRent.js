@@ -6,6 +6,7 @@ export default class CollectRent extends Component {
   	super(props);
   	this.state = {
   		number: '',
+      label: '',
   		classes: 'cr-button'
   	}
   }
@@ -19,16 +20,17 @@ export default class CollectRent extends Component {
   }
 
   submit = () => {
-  	if( this.state.number !== '' && !isNaN(parseFloat(this.state.number)) ) {
+    const { number, label } = this.state;
+  	if( number !== '' && !isNaN(parseFloat(number)) ) {
   		this.setState({ classes: 'cr-button cr-complete' });
-  		Meteor.call('payments.create', this.props.property._id, parseFloat(this.state.number), (err, res) => {
+  		Meteor.call('payments.create', this.props.property._id, parseFloat(number), label, (err, res) => {
   			if(err) {
   				// console.log(err);
           this.props.haveAToast('Error:', "Please check your inputs and try again.");
   			} else {
           this.props.haveAToast(`${this.props.property.property}:`, `You collected $${commafy(parseFloat(this.state.number))} from your tenant`);
   				setTimeout(() => {
-  					this.setState({ classes: 'cr-button', number: '' }, this.props.handleCloser);
+  					this.setState({ classes: 'cr-button', number: '', label: '' }, this.props.handleCloser);
   				}, 800)
   			}
   		});
@@ -42,6 +44,14 @@ export default class CollectRent extends Component {
     	<section className={this.props.classes}>
     		<div>
     			<h2>Collect Rent</h2>
+          <div className="input">
+            <label>Label</label>
+            <input
+              value={this.state.label} 
+              onChange={(e) => this.setState({label: e.target.value})}
+              type="number"
+              placeholder="Ex: Tenant's name or Unit #" />
+          </div>
     			<div className="input">
     				<label>Total payment amount</label>
     				<input

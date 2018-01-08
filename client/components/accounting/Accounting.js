@@ -83,7 +83,7 @@ export default class AccountingView extends Component {
                     return (
                       <div key={i} className="table">
                         <h4>{(date.getMonth() + 1) + "/" + day + "/" + year.toString().substring(2, 4)}</h4>
-                        <h4>Tenant</h4>
+                        <h4>{payment.label}</h4>
                         <h4>{commafy(parseFloat(payment.payment).toFixed(2))}</h4>
                       </div>
                     );

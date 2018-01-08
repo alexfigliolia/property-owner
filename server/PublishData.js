@@ -7,13 +7,8 @@ import { ReactiveVar } from 'meteor/reactive-var';
 const convos = new ReactiveVar([]);
 const properties = new ReactiveVar([]);
 
-function updateConvos(val) {
-  convos.set(val);
-}
-
-function updateProperties(arr) {
-  properties.set(arr);
-}
+function updateConvos(val) { convos.set(val) }
+function updateProperties(arr) { properties.set(arr) }
 
 Accounts.onCreateUser((options, user) => {
   user.name = options.name;

@@ -145,6 +145,7 @@ Meteor.methods({
   'payments.create'(id, amount, label="Tenant") {
     check(id, String);
     check(amount, Number);
+    check(label, String);
     return Payments.insert({
       propId: id, 
       label: label,
