@@ -80,7 +80,7 @@ Meteor.publish('payments', function() {
       props.forEach( prop => ids.push(prop._id) );
       updateProperties(ids);
       let filter = { propId: { $in: properties.curValue } }; 
-      return Payments.find(filter, { fields: { propId: true, payment: true, date: true }});
+      return Payments.find(filter, { fields: { propId: true, label: true, payment: true, date: true }});
     } else {
       return this.ready();
     }

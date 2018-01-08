@@ -142,11 +142,12 @@ Meteor.methods({
     return Issues.remove({_id: id});
   },
 
-  'payments.create'(id, amount) {
+  'payments.create'(id, amount, label="Tenant") {
     check(id, String);
     check(amount, Number);
     return Payments.insert({
       propId: id, 
+      label: label,
       payment: amount, 
       date: new Date()
     });
