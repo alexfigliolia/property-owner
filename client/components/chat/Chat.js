@@ -29,6 +29,10 @@ export default class Chat extends Component {
     if(this.props.conversatons !== nextProps.conversations) {
       this.getGroup(nextProps.conversations);
     }
+    if(nextProps.classes === 'chat chat-show' &&
+      nextProps.classes !== this.props.classes) {
+      this.removeNoties();
+    }
   }
 
   getGroup = (convos) => {
@@ -73,16 +77,22 @@ export default class Chat extends Component {
   		currentChat: cc,
   		contactsClasses: 'm-list',
   		conversation: conversation[0]
-  	});
+  	}, this.removeNoties);
     setTimeout(() => {
       this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
-    }, 100);
+    }, 100); 
+  }
+
+  removeNoties = () => {
+    Meteor.call('user.removeNew', this.state.conversation._id, (err, res) => {
+      if(err) console.log(err);
+    });
   }
 
   sendMessage = () => {
   	if(this.state.text !== '') {
-  		Meteor.call('messages.send', Meteor.user(), {}, this.state.text, this.state.conversation._id, (err, res) => {
-	  		if(err) { console.log(err) } else { this.setState({ text: '' }) }
+  		Meteor.call('messages.send', {_id: Meteor.userId(), name: Meteor.user().name}, {}, this.state.text, this.state.conversation._id, (err, res) => {
+	  		if(err) { console.log(err) } else { this.setState({ text: '' }, this.removeNoties) }
 	  	});
 	  	this.fly();
   	}
@@ -101,6 +111,26 @@ export default class Chat extends Component {
   	}, 650);
   }
 
+  getUnread = (id, type) => {
+    let num = 0
+    if(type === 'group') {
+      const convo = this.props.conversations.filter(convo => convo.type === 'group');
+      if(convo.length) {
+        for(let i = 0; i<this.props.unread.length; i++) {
+          if(this.props.unread[i] === convo[0]._id) num++;
+        }
+      }
+    } else {
+      const convo = this.props.conversations.filter(convo => convo.type !== 'group' && convo.owners.indexOf(id) !== -1);
+      if(convo.length) {
+        for(let i = 0; i<this.props.unread.length; i++) {
+          if(this.props.unread[i] ===  convo[0]._id) num++
+        }
+      } 
+    }
+    return num;
+  }
+
   render = () => {
     return (
     	<section className={this.props.classes}>
@@ -108,7 +138,12 @@ export default class Chat extends Component {
     			<header className="chat-header">
     				<div>
     					<button
-    						onClick={this.toggleContacts}></button>
+    						onClick={this.toggleContacts}>
+                {
+                  this.props.unread.length > 0 &&
+                  <div className='indic'>{this.props.unread.length}</div>
+                }
+              </button>
     					<h3>{this.state.currentChat}</h3>
     					<button
     						onClick={this.props.toggleChat}></button>
@@ -118,9 +153,9 @@ export default class Chat extends Component {
     				<div>
     					{
     						this.state.conversation &&
-    						this.props.messages.filter(message => {
-    							return message.conversation === this.state.conversation._id
-    						}).map((message, i) => {
+    						this.props.messages
+                .filter(message => message.conversation === this.state.conversation._id)
+                .map((message, i) => {
                   if(this.state.currentChat === 'Group') {
                     return(
                       <div 
@@ -144,6 +179,7 @@ export default class Chat extends Component {
     			</div>
     			<div className="sender">
     				<textarea
+              onFocus={this.removeNoties}
     					onChange={(e) => {this.setState({ text: e.target.value})}} 
     					placeholder="Message"
     					value={this.state.text}></textarea>
@@ -157,17 +193,34 @@ export default class Chat extends Component {
     					<div
     						data-chat='Group' 
     						className='manager-contact'
-    						onClick={this.changeChat}>Group</div>
+    						onClick={this.changeChat}
+                style={{
+                  background: this.getUnread('farts', 'group') > 0 ? '#fff' : 'transparent' 
+                }}>
+                Group
+                {
+                  this.getUnread('farts', 'group') > 0 &&
+                  <div className='indic'>{this.getUnread('farts', 'group')}</div>
+                }
+              </div>
     					{
     						this.state.managers.map((guy, i) => {
+                  const num = this.getUnread(guy._id, 'private');
     							return (
     								<div 
     									key={i} 
                       data-id={guy._id}
     									data-chat={guy.name}
     									className='manager-contact'
-    									onClick={this.changeChat}>
+    									onClick={this.changeChat}
+                      style={{
+                        background: num > 0 ? '#fff' : 'transparent'
+                      }}>
     									{guy.name}
+                      {
+                        num > 0 && num !== '' &&
+                        <div className='indic'>{num}</div>
+                      }
     								</div>
     							);
     						})

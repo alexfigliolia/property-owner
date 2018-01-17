@@ -47,6 +47,17 @@
 					&:first-of-type {
 						background: transparent url('contacts.svg') no-repeat center;
 						background-size: contain;
+						position: relative;
+						&>.indic {
+							position: absolute;
+							height: 20px; width: 20px;
+							top: calc(50% - 20px); right: -10px;
+							border-radius: 50%;
+							background: #F64A4F;
+							color: #fff;
+							font-size: 0.7em;
+							@include center;
+						}
 					}
 					&:last-of-type {
 						background: transparent url('arrow-right.svg') no-repeat center;
@@ -180,6 +191,16 @@
 					width: 100%;
 					color: #595959;
 					cursor: pointer;
+					position: relative;
+					&>.indic {
+						position: absolute;
+						height: 20px; width: 20px;
+						top: calc(50% - 10px); right: 10px;
+						@include center;
+						font-size: 0.7em;
+						border-radius: 50%;
+						background: $redish; color: #fff;
+					}
 				}
 			}
 		}
@@ -202,6 +223,17 @@
 		background: $redish;
 		transition-duration: 0.3s;
 		@include center;
+		&>.indic {
+			position: absolute;
+			top:-2px; right: -2px;
+			height: 25px; width: 25px;
+			background: $redish;
+			border-radius: 50%;
+			color: #fff;
+			font-size: 0.9em;
+			z-index: 20;
+			@include center;
+		}
 		&>img {
 			position: absolute;
 			height: 35px;

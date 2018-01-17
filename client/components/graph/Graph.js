@@ -50,18 +50,14 @@ export default class Graph extends Component {
                           height: ( (this.props.monthTotal[i] / (round(this.props.graphMax, 1)*1000)) * 100) + "%"
                         }}>
                       </div>
-                
-                      {
-                        i <= this.props.month &&
-                        <div 
-                          className={this.state.barClasses + " graph-bar-expected"}
-                          style={{
-                            background: "#51A549",
-                            height: ( ((this.props.monthTotal[i] - this.props.monthlyExpenses[i]) / (round(this.props.graphMax, 1)*1000)) * 100) < 0 ? 0 :
-                            ( ((this.props.monthTotal[i] - this.props.monthlyExpenses[i]) / (round(this.props.graphMax, 1)*1000)) * 100) + "%"
-                          }}>
-                        </div>
-                      }
+                      <div 
+                        className={this.state.barClasses + " graph-bar-expected"}
+                        style={{
+                          background: "#51A549",
+                          height: ( ((this.props.monthTotal[i] - this.props.monthlyExpenses[i]) / (round(this.props.graphMax, 1)*1000)) * 100) < 0 ? 0 :
+                          ( ((this.props.monthTotal[i] - this.props.monthlyExpenses[i]) / (round(this.props.graphMax, 1)*1000)) * 100) + "%"
+                        }}>
+                      </div>
                     </div>
   	              );
   	            })

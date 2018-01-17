@@ -73,9 +73,9 @@ export default class AccountingView extends Component {
               <h3>Income:</h3>
               {
                 this.props.rentPayments.map((payment, i) => {
-                  let date = new Date(payment.date),
-                      day = date.getDate(),
-                      year = date.getUTCFullYear();
+                  const date = new Date(payment.date);
+                  const day = date.getDate();
+                  const year = date.getUTCFullYear();
                   if( date >= new Date( this.state.range[0] + "/" + parseInt(this.state.range[1]) + "/1") &&
                       date <= new Date(parseInt(this.state.range[2]), parseInt(this.state.range[3]), 0, 23, 59, 59) ) 
                     {  
@@ -100,9 +100,9 @@ export default class AccountingView extends Component {
               {
                 this.props.issues.map((expense, i) => {
                   if(expense.solution.completed && expense.solution.spent !== 0) {
-                    let date = new Date(expense.date),
-                        day = date.getDate(),
-                        year = date.getUTCFullYear();
+                    const date = new Date(expense.date);
+                    const day = date.getDate();
+                    const year = date.getUTCFullYear();
                     if( date >= new Date(this.state.range[0] + "/" + parseInt(this.state.range[1]) + "/1") &&
                         date <= new Date(parseInt(this.state.range[2]), parseInt(this.state.range[3]), 0, 23, 59, 59)) 
                     {  

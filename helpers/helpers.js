@@ -119,19 +119,42 @@ export const calcMonthExpenses = (expenses=[], month, year) => {
       { total += parseFloat(expenses[i].solution.spent); }
     }
   }
-  return total
+  return total;
 }
 
-export const getTotalForEachMonth = (arr=[], key1='payment', key2=undefined, year) => {
+export const getTotal = (arr=[], key1='payment', key2=undefined) => {
   const init = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  arr.forEach((item, i) => {
-    if( new Date(item.date).getUTCFullYear() === year ) {
+  const d = new Date();
+  const year = d.getUTCFullYear();
+  const month = d.getMonth();
+  for(let i = 0; i < arr.length; i++) {
+    const itemDate = new Date(arr[i].date);
+    const itemMonth = itemDate.getMonth();
+    const itemYear = itemDate.getUTCFullYear();
+    if( itemYear === year ) {
       if(!key2) {
-        init[new Date(item.date).getMonth()] += parseFloat(item[key1]);
+        init[itemMonth] += parseFloat(arr[i][key1]);
       } else {
-        init[new Date(item.date).getMonth()] += parseFloat(item[key1][key2]);
+        init[itemMonth] += parseFloat(arr[i][key1][key2]);
+      }
+    } else if( itemYear === year - 1 && itemMonth > month ) {
+      if(!key2) {
+        init[itemMonth] += parseFloat(arr[i][key1]);
+      } else {
+        init[itemMonth] += parseFloat(arr[i][key1][key2]);
       }
     }
-  });
-  return init;
+  }
+  return init; 
+}
+
+export const checkOutstanding = (arr) => {
+  let hasOutstanding = false;
+  for(let i = 0; i < arr.length; i++) {
+    if(!arr[i].solution.completed) {
+      hasOutstanding = true; 
+      break;
+    }
+  }
+  return hasOutstanding;
 }

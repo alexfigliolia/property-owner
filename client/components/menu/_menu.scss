@@ -79,6 +79,7 @@
 			opacity: 0;
 			margin-left: auto;
 			border-bottom: 1px solid rgba($purple, 0.15);
+			position: relative;
 			@media #{$mq-h-1024} {
 				font-size: 1.6em;
 			}
@@ -94,6 +95,18 @@
 			}
 			&::first-letter {
 				text-transform: capitalize;
+			}
+			&>.indic {
+				position: absolute;
+				top: calc(50% - 12.5px); right: 17.5%;
+				height: 20px; width: 20px;
+				background: $redish; color: #fff;
+				font-size: 0.6em;
+				border-radius: 50%;
+				@include center;
+				@media #{$mq-550} {
+					right: 30%;
+				}
 			}
 		}
 		&>.new-property {

@@ -59,9 +59,11 @@ export default class App extends Component {
       toastTitle: 'Sup Dog!',
       toastMessage: 'You just did something and were awarded a toast',
       month: new Date().getMonth(),
-      year: new Date().getUTCFullYear()
+      year: new Date().getUTCFullYear(),
+      unread: []
     }
     this.loader = document.getElementById('appLoader');
+    this.text = new Audio("iphone_notification.mp3");
   }
 
   //Handle incoming data
@@ -81,8 +83,17 @@ export default class App extends Component {
         rentPayments: nextProps.payments,
         issues: nextProps.issues,
         managers: accExists ? nextProps.groupAccount[0].managerNames : [],
-        managerCode: accExists ? nextProps.groupAccount[0].password : ""
+        managerCode: accExists ? nextProps.groupAccount[0].password : "",
+        unread: nextProps.user.unread
       });
+      if(nextProps.user && this.props.user && 
+        this.props.user.unread && nextProps.user.unread && 
+        nextProps.user.unread.length > this.props.user.unread.length) 
+      {
+        const last = nextProps.messages[nextProps.messages.length - 1];
+        this.haveAToast(`Message from ${last.from.name}`, `${last.text}`);
+        this.text.play();
+      }
     }
     if(this.loader) {
       this.loader.classList.add('app-loader-hidden');
@@ -453,7 +464,8 @@ export default class App extends Component {
             propPage={this.propertyPage}
             goHome={this.goHome}
             toggleManagers={this.toggleManagers}
-            toggleChat={this.toggleChat} />
+            toggleChat={this.toggleChat}
+            unread={this.state.unread} />
         }
 
       	{
@@ -563,7 +575,8 @@ export default class App extends Component {
             conversations={this.props.conversations}
             managers={this.state.managers}
             messages={this.props.messages}
-            toggleChat={this.toggleChat} />
+            toggleChat={this.toggleChat}
+            unread={this.state.unread} />
         }
 
         {
@@ -588,9 +601,14 @@ export default class App extends Component {
           this.state.loggedIn &&
           <button 
             onClick={this.toggleChat}
-            className={this.state.toggleChatClasses}>
+            className={this.state.toggleChatClasses}
+            unread={this.state.unread}>
               <img src="mess.svg" alt="open messenger" />
               <img src="close2.svg" alt="close messenger" />
+              {
+                this.state.unread.length > 0 &&
+                <div className='indic'>{this.state.unread.length}</div>
+              }
           </button>
         }
 

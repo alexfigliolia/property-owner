@@ -4,7 +4,13 @@ const Menu = (props) => {
   return (
   	<div className={props.classes}>
   		<div>
-  			<a onClick={props.toggleChat}>Messages</a>
+  			<a onClick={props.toggleChat}>
+          Messages
+          {
+            props.unread.length > 0 &&
+            <div className='indic'>{props.unread.length}</div>
+          }
+        </a>
         <a onClick={props.toggleManagers}>Managers</a>
         <a onClick={props.goHome}>Dashboard</a>
         {

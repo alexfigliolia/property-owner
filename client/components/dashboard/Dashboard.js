@@ -2,11 +2,10 @@ import React from 'react';
 import Graph from '../graph/Graph';
 import OutstandingSnapShot from '../outstandingSnapShot/OutstandingSnapShot';
 import PropertySnapShot from '../propertySnapShot/PropertySnapShot';
-import { getTotalForEachMonth } from '../../../helpers/helpers';
+import { getTotal, checkOutstanding } from '../../../helpers/helpers';
 
 const Dashboard = (props) => {
-  let hasOutstanding = false;
-  props.issues.forEach(issue => { if(!issue.solution.completed) hasOutstanding = true });
+  let hasOutstanding = checkOutstanding(props.issues);
   return (
   	<section className={props.classes}>
       <button
@@ -24,8 +23,8 @@ const Dashboard = (props) => {
           month={props.month}
           year={props.year}
           yearsProjectedRevenue={12 * props.properties.reduce((acc, cur) => acc + parseInt(cur.monthRentExpected), 0)}
-          monthTotal={getTotalForEachMonth(props.rentPayments, 'payment', undefined, props.year)}
-          monthlyExpenses={getTotalForEachMonth(props.issues, 'solution', 'spent', props.year)} /> 
+          monthTotal={getTotal(props.rentPayments, 'payment')}
+          monthlyExpenses={getTotal(props.issues, 'solution', 'spent')} /> 
 
 
         {

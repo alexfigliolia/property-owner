@@ -142,6 +142,9 @@
 			border-bottom: 2px solid #fff;
 			@include center;
 			position: relative;
+			@media #{$mq-670} {
+				margin-left: 40px;
+			}
 			&::after {
 				content: "0";
 				position: absolute;
@@ -161,7 +164,7 @@
 				@include center;
 				// justify-content: space-between;
 				&::after {
-					content: attr(data-m);
+					content: attr(data-mo);
 					position: absolute;
 					bottom: -25px;
 					left: 0;
@@ -169,8 +172,11 @@
 					width: 100%;
 					height: 20px;
 					@include center;
-					font-size: 0.8em;
+					font-size: 0.6em;
+					transform: rotate(90deg);
 					@media #{$mq-670} {
+						transform: none;
+						font-size: 0.9em;
 						content: attr(data-mo);
 					}
 				}
@@ -318,8 +324,16 @@
 		color: #fff;
 		font-size: 0.6em;
 		position: absolute;
-		left: -22.5px;
+		width: 30px;
+		right: 110%;		
+		// left: -25px;
 		top: -5px;
+		text-align: right;
+		// @media #{$mq-670} {
+		// 	font-size: 0.7em;
+		// 	left: -35px;
+		// 	top: -6px;
+		// }
 	}
 }
 .notch:nth-of-type(1){

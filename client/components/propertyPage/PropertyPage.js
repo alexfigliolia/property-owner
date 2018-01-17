@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Graph from '../graph/Graph';
 import OutstandingIssues from './OutstandingIssues';
 import WorkInProgress from './WorkInProgress';
-import { getTotalForEachMonth } from '../../../helpers/helpers';
+import { getTotal } from '../../../helpers/helpers';
 
 export default class PropertyPage extends Component {
   
@@ -50,8 +50,8 @@ export default class PropertyPage extends Component {
             month={this.props.month}
             year={this.props.year}
             yearsProjectedRevenue={12 * this.props.property.monthRentExpected}
-            monthTotal={getTotalForEachMonth(this.props.rentPayments, 'payment', undefined, this.props.year)}
-            monthlyExpenses={getTotalForEachMonth(this.props.issues, 'solution', 'spent', this.props.year)}
+            monthTotal={getTotal(this.props.rentPayments, 'payment', undefined)}
+            monthlyExpenses={getTotal(this.props.issues, 'solution', 'spent')}
             toggleCollectRent={this.props.toggleCollectRent}
             togglePayABill={this.props.togglePayABill}
             toggleAccounting={this.props.toggleAccounting} /> 

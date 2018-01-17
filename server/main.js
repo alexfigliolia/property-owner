@@ -182,13 +182,32 @@ Meteor.methods({
     check(convoId, String);
     let sentTo;
     if('name' in to) { sentTo = to } else { sentTo = 'group' }
-    return Messages.insert({
+    Messages.insert({
       from: sentFrom,
       to: sentTo,
       text: text,
       date: new Date(),
       conversation: convoId
-    })
+    });
+    const convo = Conversations.find({_id: convoId}).fetch();
+    if(convo.length) {
+      Meteor.users.update(
+        { $and: [ 
+          {_id: { $in: convo[0].owners }}, 
+          { _id: {$ne: Meteor.userId()} } 
+        ]},
+        { $push: {unread: convoId}},
+        {multi: true}
+      ); 
+    }
+  },
+
+  'user.removeNew'(convo, type) {
+    check(convo, String);
+    return Meteor.users.update(
+      { _id: Meteor.userId() },
+      { $pull: { unread: convo } }
+    );
   },
 
   // 'convo.create'(id) {
