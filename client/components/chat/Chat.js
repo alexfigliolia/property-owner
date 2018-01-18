@@ -84,9 +84,11 @@ export default class Chat extends Component {
   }
 
   removeNoties = () => {
-    Meteor.call('user.removeNew', this.state.conversation._id, (err, res) => {
-      if(err) console.log(err);
-    });
+    if('_id' in this.state.conversation) {
+      Meteor.call('user.removeNew', this.state.conversation._id, (err, res) => {
+        if(err) console.log(err);
+      });
+    }
   }
 
   sendMessage = () => {
