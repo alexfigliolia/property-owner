@@ -30,7 +30,7 @@ export default class Chat extends Component {
   	}, 100);
     if(this.props.conversatons !== nextProps.conversations) {
       this.getGroup(nextProps.conversations);
-      this.setState({ conversation: this.props.conversations[0] });
+      this.setState({ conversation: this.props.conversations[0], currentChat: 'Group', });
     }
     if(nextProps.classes === 'chat chat-show' &&
       nextProps.classes !== this.props.classes) {
