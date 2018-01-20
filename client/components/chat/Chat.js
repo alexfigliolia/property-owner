@@ -15,7 +15,9 @@ export default class Chat extends Component {
 
   componentDidMount = () => {
   	setTimeout(() => {
-  		this.setState({ conversation: this.props.conversations[0] });
+      if(this.props.conversations.length) {
+        this.setState({ conversation: this.props.conversations[0] });
+      }
   		setTimeout(() => {
 	  		this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
 	  	}, 200);
@@ -28,6 +30,7 @@ export default class Chat extends Component {
   	}, 100);
     if(this.props.conversatons !== nextProps.conversations) {
       this.getGroup(nextProps.conversations);
+      this.setState({ conversation: this.props.conversations[0] });
     }
     if(nextProps.classes === 'chat chat-show' &&
       nextProps.classes !== this.props.classes) {
