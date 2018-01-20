@@ -570,6 +570,7 @@ export default class App extends Component {
 
         {
           this.state.loggedIn &&
+          this.props.conversations.length > 0 &&
           <Chat 
             classes={this.state.chatClasses}
             conversations={this.props.conversations}

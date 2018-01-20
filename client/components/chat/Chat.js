@@ -16,7 +16,7 @@ export default class Chat extends Component {
   componentDidMount = () => {
   	setTimeout(() => {
       if(this.props.conversations.length) {
-        this.setState({ conversation: this.props.conversations[0] });
+        this.setState({ conversation: this.props.conversations[0], currentChat: 'Group' });
       }
   		setTimeout(() => {
 	  		this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
@@ -30,7 +30,6 @@ export default class Chat extends Component {
   	}, 100);
     if(this.props.conversatons !== nextProps.conversations) {
       this.getGroup(nextProps.conversations);
-      this.setState({ conversation: this.props.conversations[0], currentChat: 'Group', });
     }
     if(nextProps.classes === 'chat chat-show' &&
       nextProps.classes !== this.props.classes) {
@@ -64,10 +63,9 @@ export default class Chat extends Component {
   }
 
   changeChat = (e) => {
-  	const cc = e.target.dataset.chat;
-    const id = e.target.dataset.id;
+    const { id, chat } = e.target.dataset;
   	let conversation;
-  	if(cc === 'Group') {
+  	if(chat === 'Group') {
   		conversation = this.props.conversations.filter(convo => convo.type === 'group');
   	} else {
   		conversation = this.props.conversations.filter(convo => {
@@ -77,7 +75,7 @@ export default class Chat extends Component {
   		});
   	}
   	this.setState({
-  		currentChat: cc,
+  		currentChat: chat,
   		contactsClasses: 'm-list',
   		conversation: conversation[0]
   	}, this.removeNoties);
