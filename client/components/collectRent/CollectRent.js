@@ -21,9 +21,10 @@ export default class CollectRent extends Component {
 
   submit = () => {
     const { number, label } = this.state;
+    const payer = label === '' || label === ' ' ? 'Tenant' : label;
   	if( number !== '' && !isNaN(parseFloat(number)) ) {
   		this.setState({ classes: 'cr-button cr-complete' });
-  		Meteor.call('payments.create', this.props.property._id, parseFloat(number), label, (err, res) => {
+  		Meteor.call('payments.create', this.props.property._id, parseFloat(number), payer, (err, res) => {
   			if(err) {
   				// console.log(err);
           this.props.haveAToast('Error:', "Please check your inputs and try again.");
@@ -49,7 +50,7 @@ export default class CollectRent extends Component {
             <input
               value={this.state.label} 
               onChange={(e) => this.setState({label: e.target.value})}
-              type="number"
+              type="text"
               placeholder="Ex: Tenant's name or Unit #" />
           </div>
     			<div className="input">
